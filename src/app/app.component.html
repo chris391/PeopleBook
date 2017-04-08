@@ -1,0 +1,35 @@
+<div class="container">
+
+  <nav class="navbar navbar-toggleable-md  bg-faded navbar-inverse bg-primary">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <div class="navbar-nav">
+        <a routerLink="/" class="nav-item nav-link active" href="#">
+          <i class="fa fa-home"></i>Home</a>
+        <a routerLink="/about" class="nav-item nav-link" href="#">
+          <i class="fa fa-info-circle"></i>About</a>
+        <a routerLink="/cards" class="nav-item nav-link" href="#">
+          <i class="fa fa-info"></i>Cards</a>
+      </div>
+    </div>
+  </nav>
+  <!--<nav class="navbar navbar-dark bg-primary">-->
+    <!--<div class="nav navbar-nav">-->
+      <!--<a routerLink="/" class="nav-item nav-link" routerLinkActive="active">-->
+        <!--<i class="fa fa-home"></i> Home-->
+      <!--</a>-->
+      <!--<a routerLink="/about" class="nav-item nav-link" routerLinkActive="active">-->
+        <!--<i class="fa fa-info-circle"></i> About-->
+      <!--</a>-->
+      <!--<a routerLink="/cards" class="nav-item nav-link" routerLinkActive="active">-->
+        <!--<i class="fa fa-info"></i> Cards-->
+      <!--</a>-->
+    <!--</div>-->
+  <!--</nav>-->
+  <div id="container">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
