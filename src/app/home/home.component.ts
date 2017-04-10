@@ -27,8 +27,7 @@ import {Input} from "@angular/core/src/metadata/directives";
   
   <div class="row" >
     <div class="col-sm-3" *ngFor="let employee of employees">
-      <employee [employeeTarget]="employee"></employee>
-      <button class="btn btn-sm btn-warning" (click)="enableEditing(employee)"><i class="fa fa-pencil"></i>Edit</button> 
+      <employee [employeeTarget]="employee"></employee> 
     </div>  
   
   <!--<edit-employee [employeeTarget]="employee"></edit-employee>-->
@@ -47,11 +46,6 @@ export class HomeComponent{
   ngOnInit(){
     this.getEmployees();
   }
-  enableEditing(employee){
-    this.isEditing = true;
-    this.employee = employee;
-
-  }
 
   getEmployees(){
     this.dateService.getEmployees().subscribe(
@@ -60,13 +54,17 @@ export class HomeComponent{
       () => this.isLoading=false
     );
   }
+
+  enableEditing(employee){
+    this.isEditing = true;
+    this.employee = employee;
+
+  }
+
   cancelEditing() {
     this.isEditing = false;
     this.employee = {};
     // reload the cats to reset the editing
     this.getEmployees();
   }
-
-
-
 }

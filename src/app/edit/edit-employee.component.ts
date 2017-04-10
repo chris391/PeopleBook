@@ -35,9 +35,8 @@ import {HomeComponent} from "../home/home.component";
 `
 })
 export class EditEmployeeComponent{
-
   @Input() editEmployeeTarget;
-  employee = {};
+
   constructor(private homeComponent: HomeComponent){}
 
   cancelEditing(){

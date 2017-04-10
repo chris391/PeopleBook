@@ -24,23 +24,26 @@ import {Input} from "@angular/core/src/metadata/directives";
       <a class="details">
           watch
       </a>
-      <button class="btn btn-sm btn-warning" (click)="enableEditing(cat)"><i class="fa fa-pencil"></i> Edit</button>
+      <button class="btn btn-sm btn-warning" (click)="enableEditing(employeeTarget)"><i class="fa fa-pencil"></i> Edit</button>
  </div>`
 })
 
 
 export class EmployeeComponent{
   @Input() employeeTarget;
-  //  employee={
-  //   name: String,
-  //   age: Number,
-  //   weight: Number
-  // };
 
-//this is a new comment
+  constructor(private homeComponent: HomeComponent){}
+
   ngOnInit(){
 
   }
+
+  enableEditing(employee){
+    this.homeComponent.enableEditing(employee);
+
+  }
+
+
 
 
 
