@@ -36,9 +36,8 @@ import {DataService} from "../services/data.service";
 `
 })
 export class EditEmployeeComponent{
-
   @Input() editEmployeeTarget;
-  employee = {};
+
   constructor(private homeComponent: HomeComponent){}
 
   cancelEditing(){
