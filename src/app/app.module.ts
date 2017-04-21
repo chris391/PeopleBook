@@ -8,13 +8,16 @@ import {EmployeeComponent} from "./person/employee.component";
 import { DataService } from './services/data.service'
 import {HomeComponent} from "./home/home.component";
 import {EditEmployeeComponent} from "./edit/edit-employee.component";
+import {PlayComponent} from "./play-zone/play.component";
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 
 //todo add routes here
 const routing = RouterModule.forRoot([
   {path: '', component: HomeComponent},
   {path: 'about', component: EditEmployeeComponent},
-  {path: 'cards', component: EmployeeComponent}
+  {path: 'cards', component: EmployeeComponent},
+  {path: 'play', component: PlayComponent}
 ]);
 
 @NgModule({
@@ -22,7 +25,8 @@ const routing = RouterModule.forRoot([
     AppComponent,
     EmployeeComponent,
     EditEmployeeComponent,
-    HomeComponent
+    HomeComponent,
+    PlayComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +35,7 @@ const routing = RouterModule.forRoot([
     routing
   ],
   // exports: [EmployeeComponent],
-  providers: [DataService],
+  providers: [DataService, HomeComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

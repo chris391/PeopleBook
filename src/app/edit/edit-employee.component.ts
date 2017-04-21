@@ -1,5 +1,6 @@
 import {Component, Input} from "@angular/core";
 import {HomeComponent} from "../home/home.component";
+import {DataService} from "../services/data.service";
 
 @Component({
   selector: "edit-employee",

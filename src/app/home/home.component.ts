@@ -1,7 +1,7 @@
 /**
  * Created by Cristian on 06/04/2017.
  */
-import {Component} from "@angular/core";
+import {Component, Injectable} from "@angular/core";
 import {DataService} from '../services/data.service';
 import {Input} from "@angular/core/src/metadata/directives";
 
@@ -35,6 +35,7 @@ import {Input} from "@angular/core/src/metadata/directives";
   </div>
  `
 })
+@Injectable()
 export class HomeComponent{
 
   employees = [];
