@@ -3,6 +3,13 @@
   height: 600px;
   background-color: wheat;
 }
+#footer{
+  clear: both;
+  padding: 10px;
+  color: white;
+  background-color: #999;
+  /*text-align: right;*/
+}
 /*h1 {*/
 /*font-size: 1.2em;*/
 /*color: #999;*/

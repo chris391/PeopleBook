@@ -32,7 +32,16 @@ db.once('open', function() {
     Employee.find({}, function(err, docs) {
       if(err) return console.error(err);
       res.json(docs);
+      // console.log(docs);
     });
+  });
+
+  // find by id
+  app.get('/employee/:id', function(req, res) {
+    Employee.findOne({_id: req.params.id}, function(err, obj) {
+      if(err) return console.error(err);
+      res.json(obj);
+    })
   });
 
   // count all
@@ -46,18 +55,12 @@ db.once('open', function() {
   // create
   app.put('/employee', function(req, res) {
     var obj = new Employee(req.body);
+    // console.log('in app.js');
+    // console.log(obj);
     obj.save(function(err, obj) {
       if(err) return console.error(err);
       res.status(200).json(obj);
     });
-  });
-
-  // find by id
-  app.get('/employee/:id', function(req, res) {
-    Employee.findOne({_id: req.params.id}, function(err, obj) {
-      if(err) return console.error(err);
-      res.json(obj);
-    })
   });
 
   // update by id
