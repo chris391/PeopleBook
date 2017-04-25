@@ -8,8 +8,8 @@ import {isUndefined} from "util";
 import {isNullOrUndefined} from "util";
 
 @Component({
-  selector: "edit-employee",
-  styleUrls: ["edit-employee.component.css"],
+  selector: "add-employee",
+  styleUrls: ["add-employee.component.css"],
   template:`
 
   <tbody>
@@ -19,11 +19,14 @@ import {isNullOrUndefined} from "util";
         <tr>
           <td colspan="4">
           <!--#form="ngForm"-->
-            <form   #form="ngForm" (ngSubmit)="editEmployee(employee)">
+            <form   #form="ngForm" (ngSubmit)="addEmployee()">
               <div class="form-group">
                   <input class="form-control" type="text" name="name" [(ngModel)]="employee.name" placeholder="Name" required> 
               </div>
-              <!--<div *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched" class="alert alert-danger">You must insert a name that has min length of 2 ch and max length of 5 ch.</div>-->
+              <p *ngIf="form.controls.name?.errors && form.controls.name.touched">
+            The name is required
+        </p>
+              <!--<div *ngIf="!form.controls['name'].valid && form.controls['name'].touched" class="alert alert-danger">You must insert a name that has min length of 2 ch and max length of 5 ch.</div>-->
      
               <div class="form-group">
                   <input class="form-control" type="text" name="position" [(ngModel)]="employee.position" placeholder="Position" required>
@@ -41,7 +44,7 @@ import {isNullOrUndefined} from "util";
                   <input class="form-control" type="text" name="subordinate" [(ngModel)]="employee.subordinateName" placeholder="Subordinate" required>
               </div>
               <div class="form-group">
-                  <input class="form-control" type="text" name="url" [(ngModel)]="employee.urlImage" placeholder="Image" required>
+                  <input class="form-control" type="text" name="url" [(ngModel)]="employee.urlImage" placeholder="Image" >
               </div>
               
               <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.valid"><i class="fa fa-floppy-o"></i> Save </button>
@@ -56,11 +59,11 @@ import {isNullOrUndefined} from "util";
       </div>
 `
 })
-export class EditEmployeeComponent implements OnInit{
+export class AddEmployeeComponent implements OnInit{
   // @Input() editEmployeeTarget: any;
   isLoading = true;
   // myForm: FormGroup;
-  private employee= {
+  private employee = {
     name: '',
     position: '',
     department:'',
@@ -129,12 +132,15 @@ export class EditEmployeeComponent implements OnInit{
   else if(this.objectID===undefined){
       this.isLoading = false;
     }
+
   }
+
+
 
   cancelEditing(){
 
-    // this.homeComponent.toastCanceledEditing();
-    this.toast.setMessage('item editing canceled', 'warning');
+    // this.homeComponent.getEmployees();
+    this.homeComponent.toastCanceledEditing();
     this.router.navigateByUrl('home');
     // console.log(this.myForm.value);
     // console.log(this.myForm.valid.valueOf());
@@ -142,18 +148,18 @@ export class EditEmployeeComponent implements OnInit{
   }
 
 
-  editEmployee(employee) {
-    this.dataService.editEmployee(employee).subscribe(
+  addEmployee(){
+    console.log(this.employee);
+    this.dataService.addEmployee(this.employee).subscribe(
       res => {
-        // this.isEditing = false;
-        // this.employee = employee;
-        this.toast.setMessage('item edited successfully.', 'success');
+        const newEmployee = res.json();
+        this.toast.setMessage('item added successfully', 'success');
       },
       error => console.log(error),
       () => {
         this.router.navigateByUrl('home');
       }
-    );
+    )
   }
 
 

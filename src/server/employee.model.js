@@ -5,7 +5,8 @@ var employeeSchema = mongoose.Schema({
     position: String,
     department: String,
     superiorName: String,
-    subordinateName: String
+    subordinateName: String,
+    urlImage: String
 
 });
 

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router'
 import { AppComponent } from './app.component';
@@ -8,16 +8,18 @@ import {EmployeeComponent} from "./person/employee.component";
 import { DataService } from './services/data.service'
 import {HomeComponent} from "./home/home.component";
 import {EditEmployeeComponent} from "./edit/edit-employee.component";
-import {PlayComponent} from "./play-zone/play.component";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import {ToastComponent} from "./shared/toast/toast.component";
+import {AddEmployeeComponent} from "./add/add-employee.component";
 
 
 //todo add routes here
 const routing = RouterModule.forRoot([
-  {path: '', component: HomeComponent},
-  {path: 'about', component: EditEmployeeComponent},
-  {path: 'cards', component: EmployeeComponent},
-  {path: 'play', component: PlayComponent}
+  {path: '',redirectTo: '/home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'edit/:id', component: EditEmployeeComponent},
+  {path: 'edit', component: EditEmployeeComponent},
+  {path: 'add', component: AddEmployeeComponent},
 ]);
 
 @NgModule({
@@ -26,16 +28,19 @@ const routing = RouterModule.forRoot([
     EmployeeComponent,
     EditEmployeeComponent,
     HomeComponent,
-    PlayComponent
+    ToastComponent,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    routing,
+    ReactiveFormsModule
+
   ],
   // exports: [EmployeeComponent],
-  providers: [DataService, HomeComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [DataService, HomeComponent, ToastComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

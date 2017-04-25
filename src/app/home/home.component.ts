@@ -3,13 +3,15 @@
  */
 import {Component, Injectable} from "@angular/core";
 import {DataService} from '../services/data.service';
-import {Input} from "@angular/core/src/metadata/directives";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ToastComponent} from "../shared/toast/toast.component";
 
 
 @Component({
   selector: 'home',
   styleUrls: ['home.component.css'],
   template:` 
+  <app-toast [message]="toast.message"></app-toast>  
   <!--<person ngFor*="let person of persons">HEI</person>-->
   <div class="row">
   <div class="col">col</div>
@@ -22,18 +24,23 @@ import {Input} from "@angular/core/src/metadata/directives";
 
 </div>
 <div *ngIf="isEditing">
-  <edit-employee [editEmployeeTarget]="employee"></edit-employee>
+<!--                  binding target - binding source-->
+<!--[editEmployeeTarget]="employee"-->
+  <edit-employee></edit-employee>
 </div>
-  
+  <button class="btn btn-sm btn-success" (click)="gotoAddEmployee()"><i class="fa fa-user-plus"></i> New </button>
   <div class="row" >
     <div class="col-sm-3" *ngFor="let employee of employees">
       <employee [employeeTarget]="employee"></employee> 
     </div>  
   
-  <!--<edit-employee [employeeTarget]="employee"></edit-employee>-->
   </div>
  `
 })
+//TODO
+//TODO
+//TODO
+//TODO submit on edit form and then redirect to home component and reload items
 @Injectable()
 export class HomeComponent{
 
@@ -42,14 +49,16 @@ export class HomeComponent{
   isLoading = true;
   isEditing = false;
 
-  constructor(private dateService: DataService){}
+  constructor(private dataService: DataService, private route: ActivatedRoute,private router: Router,
+                private toast: ToastComponent){}
 
   ngOnInit(){
     this.getEmployees();
+
   }
 
   getEmployees(){
-    this.dateService.getEmployees().subscribe(
+    this.dataService.getEmployees().subscribe(
       data => this.employees = data,
       error => console.log(error),
       () => this.isLoading=false
@@ -59,7 +68,9 @@ export class HomeComponent{
   enableEditing(employee){
     this.isEditing = true;
     this.employee = employee;
-
+  }
+  gotoEmployeeProfile(employee){
+    this.employee = employee;
   }
 
   cancelEditing() {
@@ -67,5 +78,13 @@ export class HomeComponent{
     this.employee = {};
     // reload the cats to reset the editing
     this.getEmployees();
+  }
+  gotoAddEmployee(): void {
+    let link = ['/add'];
+    this.router.navigate(link);
+
+  }
+  toastCanceledEditing(){
+    this.toast.setMessage('item editing canceled', 'warning');
   }
 }

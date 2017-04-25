@@ -16,8 +16,13 @@ export class DataService {
     return this.http.get('/employees').map(res => res.json());
   }
 
+  getEmployee(id: number): Observable<any> {
+    // console.log(employee._id);
+    return this.http.get(`/employee/${id}`).map(res => res.json());
+  }
+
   addEmployee(employee): Observable<any> {
-    return this.http.post('/employee', JSON.stringify(employee), this.options);
+    return this.http.put('/employee', JSON.stringify(employee), this.options);
   }
 
   editEmployee(employee): Observable<any> {
