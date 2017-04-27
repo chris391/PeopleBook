@@ -17,15 +17,20 @@ import {AddEmployeeComponent} from "./add/add-employee.component";
 const routing = RouterModule.forRoot([
   {path: '',redirectTo: '/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent},
-  {path: 'edit/:id', component: EditEmployeeComponent},
-  {path: 'edit', component: EditEmployeeComponent},
+  {path: 'employees/:id', component: EditEmployeeComponent},
+  //fixme
   {path: 'add', component: AddEmployeeComponent},
+  {path: 'edit/:id', component: EditEmployeeComponent},
+  // {path: 'edit', component: EditEmployeeComponent},
 ]);
 
 @NgModule({
   declarations: [
     AppComponent,
+    //todo summary employee component
     EmployeeComponent,
+    //todo add detail employee component
+
     EditEmployeeComponent,
     HomeComponent,
     ToastComponent,

@@ -38,6 +38,8 @@ db.once('open', function() {
 
   // find by id
   app.get('/employee/:id', function(req, res) {
+
+    // Employee.findOne({"name": req.params.id}, function(err, obj) {
     Employee.findOne({_id: req.params.id}, function(err, obj) {
       if(err) return console.error(err);
       res.json(obj);
@@ -53,7 +55,7 @@ db.once('open', function() {
   });
 
   // create
-  app.put('/employee', function(req, res) {
+  app.post('/employee', function(req, res) {
     var obj = new Employee(req.body);
     // console.log('in app.js');
     // console.log(obj);

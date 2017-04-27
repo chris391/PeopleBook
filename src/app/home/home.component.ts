@@ -12,25 +12,19 @@ import {ToastComponent} from "../shared/toast/toast.component";
   styleUrls: ['home.component.css'],
   template:` 
   <app-toast [message]="toast.message"></app-toast>  
-  <!--<person ngFor*="let person of persons">HEI</person>-->
-  <div class="row">
-  <div class="col">col</div>
-  <div class="col" style="background-color: #37ad79">col</div>
-  <div class="col">col</div>
-  <div class="col">col</div>
-  <div class="col">col</div>
-  <div class="col">col</div>
-  <div class="col">col</div>
 
-</div>
 <div *ngIf="isEditing">
 <!--                  binding target - binding source-->
 <!--[editEmployeeTarget]="employee"-->
   <edit-employee></edit-employee>
 </div>
-  <button class="btn btn-sm btn-success" (click)="gotoAddEmployee()"><i class="fa fa-user-plus"></i> New </button>
-  <div class="row" >
-    <div class="col-sm-3" *ngFor="let employee of employees">
+
+  <div id="btn-padding">
+  <button id="btn-styling" class="btn btn-lg btn-primary" (click)="gotoAddEmployee()"><i class="fa fa-plus"></i></button>
+  </div>
+  
+  <div class="row">
+    <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3" *ngFor="let employee of employees">
       <employee [employeeTarget]="employee"></employee> 
     </div>  
   

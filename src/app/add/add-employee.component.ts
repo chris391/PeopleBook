@@ -1,77 +1,121 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {HomeComponent} from "../home/home.component";
-import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveFormsModule} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
-import {isUndefined} from "util";
-import {isNullOrUndefined} from "util";
 
 @Component({
   selector: "add-employee",
   styleUrls: ["add-employee.component.css"],
   template:`
 
-  <tbody>
-  <div *ngIf="isLoading">Loading...</div>
-  <div *ngIf="!isLoading">
   <app-toast [message]="toast.message"></app-toast>
+  <tbody>
         <tr>
           <td colspan="4">
-          <!--#form="ngForm"-->
-            <form   #form="ngForm" (ngSubmit)="addEmployee()">
+            <form [formGroup]="myForm">
               <div class="form-group">
-                  <input class="form-control" type="text" name="name" [(ngModel)]="employee.name" placeholder="Name" required> 
+                  <input class="form-control" type="text" formControlName="name" [(ngModel)]="employee.name" placeholder="Name"> 
               </div>
-              <p *ngIf="form.controls.name?.errors && form.controls.name.touched">
-            The name is required
-        </p>
-              <!--<div *ngIf="!form.controls['name'].valid && form.controls['name'].touched" class="alert alert-danger">You must insert a name that has min length of 2 ch and max length of 5 ch.</div>-->
      
               <div class="form-group">
-                  <input class="form-control" type="text" name="position" [(ngModel)]="employee.position" placeholder="Position" required>
-                  <!--<span *ngIf="!myForm.controls.position?.valid && myForm.controls['position'].touched">-->
-        <!--The title is required!-->
-    <!--</span>-->
+                  <input class="form-control" type="text" formControlName="position" [(ngModel)]="employee.position" placeholder="Position">
               </div>
               <div class="form-group">
-                  <input class="form-control" type="text" name="department" [(ngModel)]="employee.department" placeholder="Department" required>
+                <input class="form-control" type="text" formControlName="department" 
+                   placeholder="Department" required>
               </div>
               <div class="form-group">
-                  <input class="form-control" type="text" name="superior" [(ngModel)]="employee.superiorName" placeholder="Superior" required>
+                <input class="form-control" type="text" formControlName="country" 
+                       placeholder="Country" required>
               </div>
               <div class="form-group">
-                  <input class="form-control" type="text" name="subordinate" [(ngModel)]="employee.subordinateName" placeholder="Subordinate" required>
+                <input class="form-control" type="text" formControlName="city"
+                       placeholder="City" required>
               </div>
               <div class="form-group">
-                  <input class="form-control" type="text" name="url" [(ngModel)]="employee.urlImage" placeholder="Image" >
+                <input class="form-control" type="text" formControlName="email" 
+                       placeholder="E-mail" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" formControlName="phoneNumber" 
+                       placeholder="Phone Number" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" formControlName="companyAddress"
+                      placeholder="Company Address" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" formControlName="office" 
+                       placeholder="Office" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" formControlName="fax" 
+                       placeholder="Fax #">
+              </div>
+              <div class="form-group">
+                <label> Start hour </label>
+                  <input class="form-control" type="text" onfocus="(this.type='time')" formControlName="startingHours" placehol>
+              </div>  
+              <div class="form-group">
+                <label> Finish hour </label>
+                  <input  class="form-control" type="text" onfocus="(this.type='time')" formControlName="finishingHours"
+                         placeholder="Finishing Hours" required/>
               </div>
               
-              <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.valid"><i class="fa fa-floppy-o"></i> Save </button>
+              <div formArrayName="subordinatesUserID"> 
+                <div *ngFor="let address of myForm.controls.subordinatesUserID.controls; let i=index">
+                  <div>
+                    <span>Subordinate {{i + 1}}</span>
+                    <span *ngIf="myForm.controls.subordinatesUserID.controls.length > 0" (click)="removeSubordinate(i)" style="cursor: pointer; color: #07C">
+                      Remove -
+                    </span>
+                  </div>
+  
+                <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+                <div [formGroupName]="i">
+                  <div>
+                      <!--<label>Subordinate</label>-->
+                      <input class="form-control" type="text" formControlName="subordinateID">
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="margin-20">
+                <a style="cursor: pointer; color: #07C" (click)="addSubordinate()">Add another subordinate +</a>
+              </div>
+              
+              <button class="btn btn-sm btn-primary" type="submit" (click)="addEmployee(myForm.value)" [disabled]="!myForm.valid"><i class="fa fa-floppy-o"></i> Save </button>
               <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel </button>
             </form>
-            
-             <!--<textarea [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>-->
-             
           </td>
         </tr>
       </tbody>
-      </div>
 `
 })
 export class AddEmployeeComponent implements OnInit{
   // @Input() editEmployeeTarget: any;
+
+  // times:  [{'0','1','2','3','4','5','6','7','8','9','10','11','12'}];
   isLoading = true;
-  // myForm: FormGroup;
+  myForm: FormGroup;
+  /*myForm =  new FormGroup({
+   name: new FormControl(),
+   position: new FormControl(),
+   department: new FormControl(),
+   country: new FormControl(),
+   city: new FormControl(),
+
+   });*/
   private employee = {
     name: '',
     position: '',
-    department:'',
-    superiorName:'',
-    subordinateName:'',
-    urlImage:''
+    department: '',
+    superiorName: '',
+    subordinateName: '',
+    urlImage: ''
   };
-  private objectID: any;
 
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
@@ -81,6 +125,7 @@ export class AddEmployeeComponent implements OnInit{
               private toast: ToastComponent) {
 
   }
+
   ngOnInit() {
 
     // this.myForm = this.fb.group({
@@ -91,53 +136,60 @@ export class AddEmployeeComponent implements OnInit{
     //   subordinate: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])]
     // });
 
-    //getting the id of the selected employee
-    this.route.params.subscribe(
-      (params: Params) => {
-        let id = params['id'];
-        this.objectID = id;
+    this.myForm = this.fb.group({
+      name: [''],
+      userID: [''],
+      position: [''],
+      department: [''],
+      country: [''],
+      city: [''],
+      email: [''],
+      phoneNumber: [''],
+      companyAddress:[''],
+      office: [''],
+      fax: [''],
+      startingHours:[''],
+      finishingHours:[''],
+      superiorsUserID: this.fb.array([
+        // this.initSubordinate()  //  todo change me to initSuperior
+      ]),
+      subordinatesUserID: this.fb.array([
 
+      ]),
 
-        // this.myForm.setValue({
-        //   name: 'ssss',
-        //   position: 'Alt-J',
-        //   department: 'Todd Motto',
-        //   superior: 'Tiny',
-        //   subordinate: 'Tin'
-        // });
-      });
+      urlImage: [''],
 
-    //requesting employee object
-    if (!(this.objectID===undefined)) {
-      this.dataService.getEmployee(this.objectID).subscribe(
-        data => {
-          this.employee = data;
+    });
+  }
 
-          // this.myForm.controls['name'].setValue(this.employee.name, { onlySelf: true });
-          // this.myForm.controls['position'].setValue(this.employee.position, { onlySelf: true });
-          // this.myForm.controls['department'].setValue(this.employee.department, { onlySelf: true });
-          // this.myForm.controls['superior'].setValue(this.employee.superiorName, { onlySelf: true });
-          // this.myForm.controls['subordinate'].setValue(this.employee.subordinateName, { onlySelf: true });
-
-          // this.myForm.updateValueAndValidity();
-        },
-
-        error => console.log(error),
-
-        () => {
-          this.isLoading = false;
-        }
-      );
-    }
-  else if(this.objectID===undefined){
-      this.isLoading = false;
-    }
-
+  addSuperior(){
+    (<FormArray>this.myForm.controls['superiorsUserID']).push(this.createSuperiorIDFormGroup())
+  }
+  createSuperiorIDFormGroup(){
+    return new FormGroup({
+      superiorID : new  FormControl('')
+    })
+  }
+  addSubordinate(){
+    (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.createSubordinateIDFormGroup())
+  }
+  removeSubordinate(index: number){
+    (<FormArray>this.myForm.controls['subordinatesUserID']).removeAt(index);
+  }
+  createSubordinateIDFormGroup(){
+    return new FormGroup({
+      subordinateID : new  FormControl('')
+    })
   }
 
 
+  initSubordinate(){
+    return this.fb.group({
+      subordinateID:['']
+    });
+  }
 
-  cancelEditing(){
+  cancelEditing() {
 
     // this.homeComponent.getEmployees();
     this.homeComponent.toastCanceledEditing();
@@ -148,7 +200,7 @@ export class AddEmployeeComponent implements OnInit{
   }
 
 
-  addEmployee(){
+  addEmployee() {
     console.log(this.employee);
     this.dataService.addEmployee(this.employee).subscribe(
       res => {
