@@ -56,7 +56,8 @@ import {ToastComponent} from "../shared/toast/toast.component";
               </div>
               <div class="form-group">
                 <label> Start hour </label>
-                  <input class="form-control" type="text" onfocus="(this.type='time')" formControlName="startingHours" placehol>
+                  <input class="form-control" type="text" onfocus="(this.type='time')" formControlName="startingHours" 
+                  placeholder="Starting Hours" required/>
               </div>  
               <div class="form-group">
                 <label> Finish hour </label>
@@ -64,6 +65,26 @@ import {ToastComponent} from "../shared/toast/toast.component";
                          placeholder="Finishing Hours" required/>
               </div>
               
+               <div formArrayName="superiorsUserID"> 
+                <div *ngFor="let address of myForm.controls.superiorsUserID.controls; let i=index">
+                  <div>
+                    <span>Subordinate {{i + 1}}</span>
+                    <span *ngIf="myForm.controls.superiorsUserID.controls.length > 0" (click)="removeSuperior(i)" style="cursor: pointer; color: #07C">
+                      Remove -
+                    </span>
+                  </div>
+                <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+                <div [formGroupName]="i">
+                  <div>
+                      <!--<label>Superior</label>-->
+                      <input class="form-control" type="text" formControlName="superiorID">
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="margin-20">
+                <a style="cursor: pointer; color: #07C" (click)="addSuperior()">Add superior +</a>
+              </div>
               <div formArrayName="subordinatesUserID"> 
                 <div *ngFor="let address of myForm.controls.subordinatesUserID.controls; let i=index">
                   <div>
@@ -72,7 +93,6 @@ import {ToastComponent} from "../shared/toast/toast.component";
                       Remove -
                     </span>
                   </div>
-  
                 <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
                 <div [formGroupName]="i">
                   <div>
