@@ -12,9 +12,10 @@ var employeeSchema = mongoose.Schema({
   companyAddress:String,
   office: String,
   fax: String,
-  workingHours: String,
+  startingHours: String,
+  finishingHours: String,
   superiorsUserID: [{superiorID: String}],
-  subordinatesUserID: [],
+  subordinatesUserID: [{subordinateID: String}],
   urlImage: String
 });
 

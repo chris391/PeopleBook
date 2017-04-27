@@ -1,5 +1,7 @@
 <app-toast [message]="toast.message"></app-toast>
 
+<div *ngIf="isLoading"> Loading... </div>
+<div *ngIf="!isLoading">
 <div style=" width:330px;margin:0 auto;">
   <form [formGroup]="myForm" style="width: 330px;">
     <div class="form-group">
@@ -107,7 +109,8 @@
       </textarea>
     </div>
 
-    <button class="btn btn-sm btn-primary" type="submit" (click)="addEmployee(myForm.value)" [disabled]="!myForm.valid"><i class="fa fa-floppy-o"></i> Save </button>
+    <button class="btn btn-sm btn-primary" type="submit" (click)="editEmployee(myForm.value)" [disabled]="!myForm.valid"><i class="fa fa-floppy-o"></i> Save </button>
     <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel </button>
   </form>
+</div>
 </div>

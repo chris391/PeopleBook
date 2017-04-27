@@ -11,6 +11,8 @@ import {EditEmployeeComponent} from "./edit/edit-employee.component";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
+import {FilterEmployees} from "./home/filter-employees.pipe";
+import {NodeService} from "./shared/service/node-service";
 
 
 //todo add routes here
@@ -34,7 +36,8 @@ const routing = RouterModule.forRoot([
     EditEmployeeComponent,
     HomeComponent,
     ToastComponent,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    FilterEmployees
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,7 @@ const routing = RouterModule.forRoot([
 
   ],
   // exports: [EmployeeComponent],
-  providers: [DataService, HomeComponent, ToastComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [NodeService, DataService, HomeComponent, ToastComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

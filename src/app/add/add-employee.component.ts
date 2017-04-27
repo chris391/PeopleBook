@@ -8,30 +8,11 @@ import {ToastComponent} from "../shared/toast/toast.component";
 @Component({
   selector: "add-employee",
   styleUrls: ["add-employee.component.css"],
-  templateUrl:"add-employee.component.html"
+  templateUrl: "add-employee.component.html"
 })
 export class AddEmployeeComponent implements OnInit{
-  // @Input() editEmployeeTarget: any;
-
-  // times:  [{'0','1','2','3','4','5','6','7','8','9','10','11','12'}];
   isLoading = true;
   myForm: FormGroup;
-  /*myForm =  new FormGroup({
-   name: new FormControl(),
-   position: new FormControl(),
-   department: new FormControl(),
-   country: new FormControl(),
-   city: new FormControl(),
-
-   });*/
-  private employee = {
-    name: '',
-    position: '',
-    department: '',
-    superiorName: '',
-    subordinateName: '',
-    urlImage: ''
-  };
 
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
@@ -43,15 +24,6 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   ngOnInit() {
-
-    // this.myForm = this.fb.group({
-    //   name: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   position: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   department: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   superior: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   subordinate: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])]
-    // });
-
     this.myForm = this.fb.group({
       name: [''], //['', Validators.compose[Validators.required]]
       userID: [''], //['', Validators.compose[Validators.required]]
@@ -69,7 +41,6 @@ export class AddEmployeeComponent implements OnInit{
       superiorsUserID: this.fb.array([]),
       subordinatesUserID: this.fb.array([]),
       urlImage: [''], //['', Validators.compose[Validators.required]]
-
     });
   }
 
@@ -96,29 +67,15 @@ export class AddEmployeeComponent implements OnInit{
     })
   }
 
-
-  initSubordinate(){
-    return this.fb.group({
-      subordinateID:['']
-    });
-  }
-
   cancelEditing() {
-
-    // this.homeComponent.getEmployees();
+    // console.log(this.myForm.value);
     this.homeComponent.toastCanceledEditing();
     this.router.navigateByUrl('home');
-    // console.log(this.myForm.value);
-    // console.log(this.myForm.valid.valueOf());
-    // this.homeComponent.cancelEditing();
   }
 
-
-  addEmployee() {
-    console.log(this.employee);
-    this.dataService.addEmployee(this.employee).subscribe(
+  addEmployee(employee) {
+    this.dataService.addEmployee(employee).subscribe(
       res => {
-        const newEmployee = res.json();
         this.toast.setMessage('item added successfully', 'success');
       },
       error => console.log(error),
@@ -127,6 +84,4 @@ export class AddEmployeeComponent implements OnInit{
       }
     )
   }
-
-
 }

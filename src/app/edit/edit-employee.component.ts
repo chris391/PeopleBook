@@ -4,73 +4,11 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray} from "@angul
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
-import {isUndefined} from "util";
-import {isNullOrUndefined} from "util";
 
 @Component({
   selector: "edit-employee",
   styleUrls: ["edit-employee.component.css"],
-  template:`
-
-  <tbody>
-  <div *ngIf="isLoading">Loading...</div>
-  <div *ngIf="!isLoading">
-  <app-toast [message]="toast.message"></app-toast>
-        <tr>
-          <td colspan="4">
-          <!--#myForm="ngForm"-->
-            <form [formGroup]="myForm">
-              <div class="form-group">
-                  <input class="form-control" type="text" formControlName="name" placeholder="Name" required> 
-              </div>
-              <!--<div *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched" class="alert alert-danger">You must insert a name that has min length of 2 ch and max length of 5 ch.</div>-->
-     
-              <div class="form-group">
-                  <input class="form-control" type="text" formControlName="position" placeholder="Position" required>
-                  <!--<span *ngIf="!myForm.controls.position?.valid && myForm.controls['position'].touched">-->
-        <!--The title is required!-->
-    <!--</span>-->
-              </div>
-              
-              <button class="btn btn-sm btn-primary" type="submit" (click)="editEmployee(myForm.value)" [disabled]="!myForm.valid"><i class="fa fa-floppy-o"></i> Save </button>
-              <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel </button>
-              <button class="btn btn-sm btn-warning" (click)="getEmployee()">Print Employee </button>
-              
-              
-              <div formArrayName="subordinatesUserID"> 
-                <!--<button (click)="addLink()">Add address</button>-->
-                <div *ngFor="let subordinate of myForm.controls.subordinatesUserID.controls; let i=index">
-                  <!-- address header, show remove button when more than one address available -->
-                  <div>
-                    <span>Subordinate {{i + 1}}</span>
-                    <span *ngIf="myForm.controls.subordinatesUserID.controls.length > 0" (click)="removeSubordinate(i)">
-                      Remove
-                    </span>
-                  </div>
-  
-                <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-                <div [formGroupName]="i">
-                  <div>
-                      <label>Subordinate</label>
-                      <input class="form-control" type="text" formControlName="subordinateID">
-                  </div>
-                </div>
-              </div>
-              </div>
-              
-              <div class="margin-20">
-                <a style="cursor: pointer; color: #07C" (click)="addSubordinate()">Add another subordinate +</a>
-              </div>
-              
-            </form>
-            
-             <!--<textarea [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>-->
-             
-          </td>
-        </tr>
-      </tbody>
-      </div>
-`
+  templateUrl: "edit-employee.component.html"
 })
 export class EditEmployeeComponent {
   isLoading = true;
@@ -82,9 +20,22 @@ export class EditEmployeeComponent {
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      name: [''],
-      position: new FormControl(''),
-      subordinatesUserID: this.fb.array([])
+      name: [''], //['', Validators.compose[Validators.required]]
+      userID: [''], //['', Validators.compose[Validators.required]]
+      position: [''], //['', Validators.compose[Validators.required]]
+      department: [''], //['', Validators.compose[Validators.required]]
+      country: [''],  //['', Validators.compose[Validators.required]]
+      city: [''], //['', Validators.compose[Validators.required]]
+      email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
+      phoneNumber: [''],  //['', Validators.compose[Validators.required]]
+      companyAddress:[''],  //['', Validators.compose[Validators.required]]
+      office: [''], //['', Validators.compose[Validators.required]]
+      fax: [''],  //['', Validators.compose[Validators.required]]
+      startingHours:[''], //['', Validators.compose[Validators.required]]
+      finishingHours:[''],  //['', Validators.compose[Validators.required]]
+      superiorsUserID: this.fb.array([]),
+      subordinatesUserID: this.fb.array([]),
+      urlImage: [''], //['', Validators.compose[Validators.required]]
     });
 
     //getting the id of the selected employee
@@ -97,7 +48,21 @@ export class EditEmployeeComponent {
     this.dataService.getEmployee(this.objectID).subscribe(
         employeeObj => {
           this.myForm.controls['name'].setValue(employeeObj.name);
+          this.myForm.controls['userID'].setValue(employeeObj.userID);
           this.myForm.controls['position'].setValue(employeeObj.position);
+          this.myForm.controls['department'].setValue(employeeObj.department);
+          this.myForm.controls['country'].setValue(employeeObj.country);
+          this.myForm.controls['city'].setValue(employeeObj.city);
+          this.myForm.controls['email'].setValue(employeeObj.email);
+          this.myForm.controls['phoneNumber'].setValue(employeeObj.phoneNumber);
+          this.myForm.controls['companyAddress'].setValue(employeeObj.companyAddress);
+          this.myForm.controls['office'].setValue(employeeObj.office);
+          this.myForm.controls['fax'].setValue(employeeObj.fax);
+          this.myForm.controls['startingHours'].setValue(employeeObj.startingHours);
+          this.myForm.controls['finishingHours'].setValue(employeeObj.finishingHours);
+          this.myForm.controls['urlImage'].setValue(employeeObj.urlImage);
+          employeeObj.superiorsUserID.forEach((superiorID) =>
+            (<FormArray>this.myForm.controls['superiorsUserID']).push(this.initSuperiorIDFormGroup(superiorID)));
           employeeObj.subordinatesUserID.forEach((subordinateID) =>
             (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.initSubordinateIDFormGroup(subordinateID)));
         },
@@ -109,12 +74,25 @@ export class EditEmployeeComponent {
         }
       );
   }
-  initSubordinate(){
-    return this.fb.group({
-      // _id:[''],
-      subordinateID: ['']
+
+  addSuperior(){
+    (<FormArray>this.myForm.controls['superiorsUserID']).push(this.createSuperiorIDFormGroup());
+  }
+  removeSuperior(index: number){
+    (<FormArray>this.myForm.controls['superiorsUserID']).removeAt(index);
+  }
+  createSuperiorIDFormGroup(){
+    return new FormGroup({
+      superiorID: new FormControl('')
+    })
+  }
+  initSuperiorIDFormGroup(superiorIDObj) {
+    // console.log("subordinatesUserIDObj", subordinateIDObj);
+    return new FormGroup({
+      superiorID: new FormControl(superiorIDObj.superiorID),
     });
   }
+
   addSubordinate(){
     (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.createSubordinateIDFormGroup());
   }
@@ -131,10 +109,10 @@ export class EditEmployeeComponent {
     return new FormGroup({
       subordinateID: new FormControl(subordinateIDObj.subordinateID),
     });
-
   }
 
   cancelEditing(){
+    // console.log(this.myForm.value);
     this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
   }
@@ -142,6 +120,7 @@ export class EditEmployeeComponent {
 
   editEmployee(employee) {
     this.dataService.editEmployee(this.objectID, employee).subscribe(
+      //todo remove res
       res => {
         this.toast.setMessage('item edited successfully.', 'success');
       },
