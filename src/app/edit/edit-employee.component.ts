@@ -75,49 +75,16 @@ import {isNullOrUndefined} from "util";
 export class EditEmployeeComponent {
   isLoading = true;
   public myForm: FormGroup;
-  private employee= {
-    // _id: 0,
-    // __v: 0,
-    name: '',
-    position: '',
-    subordinatesUserID:[]
-  };
-  myModel: any;
   form: FormGroup;
   private objectID: any;
 
-  constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {
-    this.myModel ={
-      name: 'Joanna',
-      position: 'CEO',
-      subordinatesUserID:[{subordinateID: 'G42'},{subordinateID: 'G43'}]
-    };
-    this.form = this.fb.group({
-      name: new FormControl(''),
-      position: new FormControl(''),
-      subordinatesUserID: new FormArray([])
-    });
-    // this.form.setValue(this.myModel);
-    (<FormControl>this.form.controls['name']).setValue(this.myModel.name);
-    (<FormControl>this.form.controls['position']).setValue(this.myModel.position);
-    this.myModel.subordinatesUserID.forEach((subordinateID) =>
+  constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}
 
-      (<FormArray>this.form.controls['subordinatesUserID']).push(this.initSubordinateIDFormGroup(subordinateID)));
-
-    // console.log(this.form.value);
-  }
-
-  object = {};
   ngOnInit() {
-
     this.myForm = this.fb.group({
-      // _id:new FormControl(),
-      // __v:new FormControl(),
       name: [''],
       position: new FormControl(''),
-      subordinatesUserID: this.fb.array([
-        // this.initSubordinate()
-      ])
+      subordinatesUserID: this.fb.array([])
     });
 
     //getting the id of the selected employee
@@ -129,65 +96,18 @@ export class EditEmployeeComponent {
 
     this.dataService.getEmployee(this.objectID).subscribe(
         employeeObj => {
-          // console.log(employeeObj);
-
           this.myForm.controls['name'].setValue(employeeObj.name);
           this.myForm.controls['position'].setValue(employeeObj.position);
           employeeObj.subordinatesUserID.forEach((subordinateID) =>
-
             (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.initSubordinateIDFormGroup(subordinateID)));
-
-          console.log(this.myForm.value);
-
-
-
-          // this.employee = employeeObj;
-          // this.object = data;
-
-          // this.myForm.setValue(employeeObj);
-
-          // this.myForm.controls['subordinatesUserID'].patchValue(data.subordinatesUserID);
-          // let controlArray = <FormArray>this.myForm.controls['subordinatesUserID'];
-          // this.employee.subordinatesUserID.forEach((subordinateObj, index) => {
-            // (<FormArray>this.myForm.controls['subordinatesUserID']).push(new FormControl({subordinateID: 'hi'}));
-            // (<FormArray>this.myForm.controls['subordinatesUserID']).push(new FormControl(subordinateObj));
-            // console.log(subordinateObj.subordinateID);
-            // }
-          // );
-
-          // this.employee.subordinatesUserID.forEach(subordinateObj => {
-          //   (<FormArray>this.myForm.controls['']).push(subordinateObj.subordinateID);
-            // const fb = this.buildGroup();
-            // this.myForm.controls['subordinatesUserID'].patchValue(id);
-            // fb.patchValue(id);
-            // controlArray.push();
-          // });
-          // this.myForm.controls['subordinatesUserID'].setValue(data.subordinatesUserID);
-          // this.myForm.controls['name'].setValue(data.name);
-          // this.myForm.controls['position'].setValue(data.position);
-          // this.myForm.controls['subordinatesUserID'].setValue(data.subordinatesUserID);
-          // this.employee = data;
-
         },
 
         error => console.log(error),
 
         () => {
-          // this.myForm.patchValue(this.object);
-          console.log('on complete');
-          // console.log(this.object);
-
-          // this.myForm.patchValue(this.object);
-          // this.myForm.patchValue(this.employee);
-          // this.myForm.setValue(this.employee);
-          console.log(this.myForm.value);
           this.isLoading = false;
         }
       );
-  //   }
-  // else if(this.objectID===undefined){
-  //     this.isLoading = false;
-  //   }
   }
   initSubordinate(){
     return this.fb.group({
@@ -201,13 +121,11 @@ export class EditEmployeeComponent {
   removeSubordinate(index: number){
     (<FormArray>this.myForm.controls['subordinatesUserID']).removeAt(index);
   }
-
   createSubordinateIDFormGroup(){
     return new FormGroup({
       subordinateID: new FormControl('')
     })
   }
-
   initSubordinateIDFormGroup(subordinateIDObj) {
     // console.log("subordinatesUserIDObj", subordinateIDObj);
     return new FormGroup({
@@ -217,23 +135,14 @@ export class EditEmployeeComponent {
   }
 
   cancelEditing(){
-
-    // this.homeComponent.toastCanceledEditing();
     this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
-    // console.log(this.myForm.value);
-    // console.log(this.myForm.valid.valueOf());
-    // this.homeComponent.cancelEditing();
   }
 
 
   editEmployee(employee) {
-    // console.log(employee);
-    // console.log(employee._id);
     this.dataService.editEmployee(this.objectID, employee).subscribe(
       res => {
-        // this.isEditing = false;
-        // this.employee = employee;
         this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error),
@@ -242,18 +151,4 @@ export class EditEmployeeComponent {
       }
     );
   }
-
-  getEmployee() {
-
-      var adduser = {
-        name: this.myForm.controls['name'].value,
-        position: this.myForm.controls['position'].value,
-        subordinatesUserID: this.myForm.controls['subordinatesUserID'].value,
-
-      };
-      console.log(adduser);// adduser var contains all our form values. store it where you want
-      // this.addForm.reset();// this will reset our form values to null
-}
-
-
 }

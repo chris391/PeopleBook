@@ -8,111 +8,7 @@ import {ToastComponent} from "../shared/toast/toast.component";
 @Component({
   selector: "add-employee",
   styleUrls: ["add-employee.component.css"],
-  template:`
-
-  <app-toast [message]="toast.message"></app-toast>
-  <tbody>
-        <tr>
-          <td colspan="4">
-            <form [formGroup]="myForm">
-              <div class="form-group">
-                  <input class="form-control" type="text" formControlName="name" [(ngModel)]="employee.name" placeholder="Name"> 
-              </div>
-     
-              <div class="form-group">
-                  <input class="form-control" type="text" formControlName="position" [(ngModel)]="employee.position" placeholder="Position">
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="department" 
-                   placeholder="Department" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="country" 
-                       placeholder="Country" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="city"
-                       placeholder="City" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="email" 
-                       placeholder="E-mail" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="phoneNumber" 
-                       placeholder="Phone Number" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="companyAddress"
-                      placeholder="Company Address" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="office" 
-                       placeholder="Office" required>
-              </div>
-              <div class="form-group">
-                <input class="form-control" type="text" formControlName="fax" 
-                       placeholder="Fax #">
-              </div>
-              <div class="form-group">
-                <label> Start hour </label>
-                  <input class="form-control" type="text" onfocus="(this.type='time')" formControlName="startingHours" 
-                  placeholder="Starting Hours" required/>
-              </div>  
-              <div class="form-group">
-                <label> Finish hour </label>
-                  <input  class="form-control" type="text" onfocus="(this.type='time')" formControlName="finishingHours"
-                         placeholder="Finishing Hours" required/>
-              </div>
-              
-               <div formArrayName="superiorsUserID"> 
-                <div *ngFor="let address of myForm.controls.superiorsUserID.controls; let i=index">
-                  <div>
-                    <span>Subordinate {{i + 1}}</span>
-                    <span *ngIf="myForm.controls.superiorsUserID.controls.length > 0" (click)="removeSuperior(i)" style="cursor: pointer; color: #07C">
-                      Remove -
-                    </span>
-                  </div>
-                <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-                <div [formGroupName]="i">
-                  <div>
-                      <!--<label>Superior</label>-->
-                      <input class="form-control" type="text" formControlName="superiorID">
-                  </div>
-                </div>
-              </div>
-              </div>
-              <div class="margin-20">
-                <a style="cursor: pointer; color: #07C" (click)="addSuperior()">Add superior +</a>
-              </div>
-              <div formArrayName="subordinatesUserID"> 
-                <div *ngFor="let address of myForm.controls.subordinatesUserID.controls; let i=index">
-                  <div>
-                    <span>Subordinate {{i + 1}}</span>
-                    <span *ngIf="myForm.controls.subordinatesUserID.controls.length > 0" (click)="removeSubordinate(i)" style="cursor: pointer; color: #07C">
-                      Remove -
-                    </span>
-                  </div>
-                <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
-                <div [formGroupName]="i">
-                  <div>
-                      <!--<label>Subordinate</label>-->
-                      <input class="form-control" type="text" formControlName="subordinateID">
-                  </div>
-                </div>
-              </div>
-              </div>
-              <div class="margin-20">
-                <a style="cursor: pointer; color: #07C" (click)="addSubordinate()">Add another subordinate +</a>
-              </div>
-              
-              <button class="btn btn-sm btn-primary" type="submit" (click)="addEmployee(myForm.value)" [disabled]="!myForm.valid"><i class="fa fa-floppy-o"></i> Save </button>
-              <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel </button>
-            </form>
-          </td>
-        </tr>
-      </tbody>
-`
+  templateUrl:"add-employee.component.html"
 })
 export class AddEmployeeComponent implements OnInit{
   // @Input() editEmployeeTarget: any;
@@ -157,33 +53,31 @@ export class AddEmployeeComponent implements OnInit{
     // });
 
     this.myForm = this.fb.group({
-      name: [''],
-      userID: [''],
-      position: [''],
-      department: [''],
-      country: [''],
-      city: [''],
-      email: [''],
-      phoneNumber: [''],
-      companyAddress:[''],
-      office: [''],
-      fax: [''],
-      startingHours:[''],
-      finishingHours:[''],
-      superiorsUserID: this.fb.array([
-        // this.initSubordinate()  //  todo change me to initSuperior
-      ]),
-      subordinatesUserID: this.fb.array([
-
-      ]),
-
-      urlImage: [''],
+      name: [''], //['', Validators.compose[Validators.required]]
+      userID: [''], //['', Validators.compose[Validators.required]]
+      position: [''], //['', Validators.compose[Validators.required]]
+      department: [''], //['', Validators.compose[Validators.required]]
+      country: [''],  //['', Validators.compose[Validators.required]]
+      city: [''], //['', Validators.compose[Validators.required]]
+      email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
+      phoneNumber: [''],  //['', Validators.compose[Validators.required]]
+      companyAddress:[''],  //['', Validators.compose[Validators.required]]
+      office: [''], //['', Validators.compose[Validators.required]]
+      fax: [''],  //['', Validators.compose[Validators.required]]
+      startingHours:[''], //['', Validators.compose[Validators.required]]
+      finishingHours:[''],  //['', Validators.compose[Validators.required]]
+      superiorsUserID: this.fb.array([]),
+      subordinatesUserID: this.fb.array([]),
+      urlImage: [''], //['', Validators.compose[Validators.required]]
 
     });
   }
 
   addSuperior(){
     (<FormArray>this.myForm.controls['superiorsUserID']).push(this.createSuperiorIDFormGroup())
+  }
+  removeSuperior(index: number){
+    (<FormArray>this.myForm.controls['superiorsUserID']).removeAt(index);
   }
   createSuperiorIDFormGroup(){
     return new FormGroup({
