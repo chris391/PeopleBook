@@ -38,8 +38,9 @@ db.once('open', function() {
 
   // find by id
   app.get('/employee/:id', function(req, res) {
-    console.log(req.params.id);
-    Employee.findOne({"name": req.params.id}, function(err, obj) {
+
+    // Employee.findOne({"name": req.params.id}, function(err, obj) {
+    Employee.findOne({_id: req.params.id}, function(err, obj) {
       if(err) return console.error(err);
       res.json(obj);
     })

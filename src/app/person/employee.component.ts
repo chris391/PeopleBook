@@ -60,13 +60,6 @@ export class EmployeeComponent{
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
       this.dataService.deleteEmployee(employee).subscribe(
         res => {
-          // const pos = this.cats.map(elem => { return elem._id; }).indexOf(cat._id);
-          // this.cats.splice(pos, 1);
-
-          //not making server request, more efficient
-          // this.homeComponent.employees.pop();
-
-          // this.homeComponent.getEmployees();
         },
         error => console.log(error),
         () => {

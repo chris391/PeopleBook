@@ -1,10 +1,11 @@
 /**
  * Created by Cristian on 06/04/2017.
  */
-import {Component, Injectable} from "@angular/core";
+import {Component, Injectable, Input} from "@angular/core";
 import {DataService} from '../services/data.service';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ToastComponent} from "../shared/toast/toast.component";
+import {NodeService} from "../shared/service/node-service";
 
 
 @Component({
@@ -12,32 +13,28 @@ import {ToastComponent} from "../shared/toast/toast.component";
   styleUrls: ['home.component.css'],
   template:` 
   <app-toast [message]="toast.message"></app-toast>  
-  <!--<person ngFor*="let person of persons">HEI</person>-->
-  
+
 <div *ngIf="isEditing">
 <!--                  binding target - binding source-->
-<!--[editEmployeeTarget]="employee"-->
-  <edit-employee></edit-employee> 
+  <edit-employee></edit-employee>
 </div>
-  
+
   <div id="btn-padding">
-    <button id="btn-styling" class="btn btn-lg btn-primary" (click)="gotoAddEmployee()"><i class="fa fa-plus"></i>  </button>
+  <button id="btn-styling" class="btn btn-lg btn-primary" (click)="gotoAddEmployee()"><i class="fa fa-plus"></i></button>
   </div>
   
-  <div class="row" >
-    <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3" *ngFor="let employee of employees">
+  <div class="row">
+
+    <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3" *ngFor="let employee of employees | filterEmployees: searchInput">
       <employee [employeeTarget]="employee"></employee> 
     </div>  
-  
+  <!--<div><p>data from Service HERE:</p><p style="color:red"> {{searchInput}}</p></div>-->
   </div>
  `
 })
-//TODO
-//TODO
-//TODO
-//TODO submit on edit form and then redirect to home component and reload items
 @Injectable()
 export class HomeComponent{
+  searchInput: any;
 
   employees = [];
   employee = {};
@@ -45,10 +42,13 @@ export class HomeComponent{
   isEditing = false;
 
   constructor(private dataService: DataService, private route: ActivatedRoute,private router: Router,
-                private toast: ToastComponent){}
+                private toast: ToastComponent, private nodeService: NodeService){}
 
   ngOnInit(){
     this.getEmployees();
+    this.nodeService.getData().subscribe(data => {
+      this.searchInput = data;
+    })
 
   }
 

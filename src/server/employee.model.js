@@ -1,24 +1,22 @@
 var mongoose = require('mongoose');
 
 var employeeSchema = mongoose.Schema({
-    name: String,
-    userID: String,
-    position: String,
-    department: String,
-    country: String,
-    city: String,
-    email: String,
-    phoneNumber: String,
-    companyAddress:String,
-    office: String,
-    fax: String,
-    workingHours: String,
-    startTime: String,
-    endTime: String,
-    superiorsUserID: [String],
-    subordinatesUserID: [String],
-    urlImage: String
-
+  name: String,
+  userID: String,
+  position: String,
+  department: String,
+  country: String,
+  city: String,
+  email: String,
+  phoneNumber: String,
+  companyAddress:String,
+  office: String,
+  fax: String,
+  startingHours: String,
+  finishingHours: String,
+  superiorsUserID: [{superiorID: String}],
+  subordinatesUserID: [{subordinateID: String}],
+  urlImage: String
 });
 
 var Employee = mongoose.model('Employee', employeeSchema);

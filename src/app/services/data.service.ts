@@ -25,9 +25,12 @@ export class DataService {
     return this.http.post('/employee', JSON.stringify(employee), this.options);
   }
 
-  editEmployee(employee): Observable<any> {
-    return this.http.put(`/employee/${employee._id}`, JSON.stringify(employee), this.options);
+  editEmployee(id: number, employee): Observable<any> {
+    return this.http.put(`/employee/${id}`, JSON.stringify(employee), this.options);
   }
+  // editEmployee(employee): Observable<any> {
+  //   return this.http.put(`/employee/${employee._id}`, JSON.stringify(employee), this.options);
+  // }
 
   deleteEmployee(employee): Observable<any> {
     return this.http.delete(`/employee/${employee._id}`, this.options);
