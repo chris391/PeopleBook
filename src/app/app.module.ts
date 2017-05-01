@@ -12,7 +12,9 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
 import {FilterEmployees} from "./home/filter-employees.pipe";
-import {NodeService} from "./shared/service/node-service";
+import {NodeService} from "./shared/service/subject-service";
+import { EmployeeProfileComponent } from './profile/employee-profile.component';
+
 
 
 //todo add routes here
@@ -29,7 +31,7 @@ const routing = RouterModule.forRoot([
 @NgModule({
   declarations: [
     AppComponent,
-    //todo summary employee component
+    //todo thumbnail employee component
     EmployeeComponent,
     //todo add detail employee component
 
@@ -37,18 +39,19 @@ const routing = RouterModule.forRoot([
     HomeComponent,
     ToastComponent,
     AddEmployeeComponent,
-    FilterEmployees
+    FilterEmployees,
+    EmployeeProfileComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     routing,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
   ],
+
   // exports: [EmployeeComponent],
-  providers: [NodeService, DataService, HomeComponent, ToastComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+  providers: [AppComponent, NodeService, DataService, HomeComponent, ToastComponent, {provide: LocationStrategy, useClass: HashLocationStrategy}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

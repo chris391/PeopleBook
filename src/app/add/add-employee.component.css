@@ -1,0 +1,27 @@
+label{
+  font-weight: bold;
+}
+#superiorAdd{
+  cursor: pointer; color: #07C
+}
+#subordinateAdd {
+  cursor: pointer; color: #07C
+}
+#superiorAdd:hover{
+  text-decoration: underline;
+}
+#subordinateAdd:hover{
+  text-decoration: underline;
+}
+#superiorRemove{
+  cursor: pointer; color: #07C
+}
+#subordinateRemove {
+  cursor: pointer; color: #07C
+}
+#superiorRemove:hover{
+  text-decoration: underline;
+}
+#subordinateRemove:hover{
+  text-decoration: underline;
+}

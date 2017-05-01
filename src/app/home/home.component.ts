@@ -5,10 +5,11 @@ import {Component, Injectable, Input} from "@angular/core";
 import {DataService} from '../services/data.service';
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {ToastComponent} from "../shared/toast/toast.component";
-import {NodeService} from "../shared/service/node-service";
+import {NodeService} from "../shared/service/subject-service";
 
 
 @Component({
+
   selector: 'home',
   styleUrls: ['home.component.css'],
   template:` 
@@ -60,6 +61,7 @@ export class HomeComponent{
     );
   }
 
+  //todo remove
   enableEditing(employee){
     this.isEditing = true;
     this.employee = employee;

@@ -6,6 +6,7 @@ import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
 
 @Component({
+
   selector: "edit-employee",
   styleUrls: ["edit-employee.component.css"],
   templateUrl: "edit-employee.component.html"
@@ -15,11 +16,13 @@ export class EditEmployeeComponent {
   public myForm: FormGroup;
   form: FormGroup;
   private objectID: any;
+  myModel:any;
 
   constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}
 
-  ngOnInit() {
+  ngOnInit(){
     this.myForm = this.fb.group({
+      _id: [''], //['', Validators.compose[Validators.required]]
       name: [''], //['', Validators.compose[Validators.required]]
       userID: [''], //['', Validators.compose[Validators.required]]
       position: [''], //['', Validators.compose[Validators.required]]
@@ -47,6 +50,9 @@ export class EditEmployeeComponent {
 
     this.dataService.getEmployee(this.objectID).subscribe(
         employeeObj => {
+          this.myModel = employeeObj;
+
+          this.myForm.controls['_id'].setValue(employeeObj._id);
           this.myForm.controls['name'].setValue(employeeObj.name);
           this.myForm.controls['userID'].setValue(employeeObj.userID);
           this.myForm.controls['position'].setValue(employeeObj.position);
