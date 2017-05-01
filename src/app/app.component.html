@@ -1,15 +1,15 @@
-<div class="container">
-
   <nav class="navbar navbar-toggleable-md  bg-faded navbar-inverse bg-primary">
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse">
+    <!--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">-->
+      <!--<span class="navbar-toggler-icon"></span>-->
+    <!--</button>-->
+    <div class="navbar-collapse">
       <div class="navbar-nav">
         <a routerLink="/" class="nav-item nav-link active" href="#">
-          <i class="fa fa-home"></i>Home</a>
+          <i class="fa fa-home"></i> Home </a>
       </div>
     </div>
+    <input style="width: 250px" type="text" id="search" class="form-control" [(ngModel)]="search" (keyup)="updateData($event)" placeholder="Search for..."/>
+
   </nav>
 
   <div id="container">
@@ -17,5 +17,3 @@
   </div>
 
   <footer id="footer">Copyright &copy; 2017 Cristian & Marco.</footer>
-
-</div>

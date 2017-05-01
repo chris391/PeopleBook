@@ -1,122 +1,70 @@
 import {Component, Input, OnInit} from "@angular/core";
 import {HomeComponent} from "../home/home.component";
-import {FormBuilder, FormGroup, Validators, FormControl} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators, FormControl, FormArray} from "@angular/forms";
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
-import {isUndefined} from "util";
-import {isNullOrUndefined} from "util";
 
 @Component({
   selector: "edit-employee",
   styleUrls: ["edit-employee.component.css"],
-  template:`
-
-  <tbody>
-  <div *ngIf="isLoading">Loading...</div>
-  <div *ngIf="!isLoading">
-  <app-toast [message]="toast.message"></app-toast>
-        <tr>
-          <td colspan="4">
-          <!--#form="ngForm"-->
-            <form   #form="ngForm" (ngSubmit)="editEmployee(employee)">
-              <div class="form-group">
-                  <input class="form-control" type="text" name="name" [(ngModel)]="employee.name" placeholder="Name" required> 
-              </div>
-              <!--<div *ngIf="!myForm.controls['name'].valid && myForm.controls['name'].touched" class="alert alert-danger">You must insert a name that has min length of 2 ch and max length of 5 ch.</div>-->
-     
-              <div class="form-group">
-                  <input class="form-control" type="text" name="position" [(ngModel)]="employee.position" placeholder="Position" required>
-                  <!--<span *ngIf="!myForm.controls.position?.valid && myForm.controls['position'].touched">-->
-        <!--The title is required!-->
-    <!--</span>-->
-              </div>
-              <div class="form-group">
-                  <input class="form-control" type="text" name="department" [(ngModel)]="employee.department" placeholder="Department" required>
-              </div>
-              <div class="form-group">
-                  <input class="form-control" type="text" name="superior" [(ngModel)]="employee.superiorName" placeholder="Superior" required>
-              </div>
-              <div class="form-group">
-                  <input class="form-control" type="text" name="subordinate" [(ngModel)]="employee.subordinateName" placeholder="Subordinate" required>
-              </div>
-              <div class="form-group">
-                  <input class="form-control" type="text" name="url" [(ngModel)]="employee.urlImage" placeholder="Image" required>
-              </div>
-              
-              <button class="btn btn-sm btn-primary" type="submit" [disabled]="!form.valid"><i class="fa fa-floppy-o"></i> Save </button>
-              <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel </button>
-            </form>
-            
-             <!--<textarea [(ngModel)]="message" rows="10" cols="35" [disabled]="sending"></textarea>-->
-             
-          </td>
-        </tr>
-      </tbody>
-      </div>
-`
+  templateUrl: "edit-employee.component.html"
 })
-export class EditEmployeeComponent implements OnInit{
-  // @Input() editEmployeeTarget: any;
+export class EditEmployeeComponent {
   isLoading = true;
-  // myForm: FormGroup;
-  private employee= {
-    name: '',
-    position: '',
-    department:'',
-    superiorName:'',
-    subordinateName:'',
-    urlImage:''
-  };
+  public myForm: FormGroup;
+  form: FormGroup;
   private objectID: any;
 
-  constructor(private homeComponent: HomeComponent,
-              private fb: FormBuilder,
-              private route: ActivatedRoute,
-              private dataService: DataService,
-              private router: Router,
-              private toast: ToastComponent) {
+  constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}
 
-  }
   ngOnInit() {
-
-    // this.myForm = this.fb.group({
-    //   name: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   position: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   department: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   superior: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])],
-    //   subordinate: ['', Validators.compose([Validators.required, Validators.minLength(1), Validators.maxLength(8)])]
-    // });
+    this.myForm = this.fb.group({
+      name: [''], //['', Validators.compose[Validators.required]]
+      userID: [''], //['', Validators.compose[Validators.required]]
+      position: [''], //['', Validators.compose[Validators.required]]
+      department: [''], //['', Validators.compose[Validators.required]]
+      country: [''],  //['', Validators.compose[Validators.required]]
+      city: [''], //['', Validators.compose[Validators.required]]
+      email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
+      phoneNumber: [''],  //['', Validators.compose[Validators.required]]
+      companyAddress:[''],  //['', Validators.compose[Validators.required]]
+      office: [''], //['', Validators.compose[Validators.required]]
+      fax: [''],  //['', Validators.compose[Validators.required]]
+      startingHours:[''], //['', Validators.compose[Validators.required]]
+      finishingHours:[''],  //['', Validators.compose[Validators.required]]
+      superiorsUserID: this.fb.array([]),
+      subordinatesUserID: this.fb.array([]),
+      urlImage: [''], //['', Validators.compose[Validators.required]]
+    });
 
     //getting the id of the selected employee
     this.route.params.subscribe(
       (params: Params) => {
         let id = params['id'];
         this.objectID = id;
-
-
-        // this.myForm.setValue({
-        //   name: 'ssss',
-        //   position: 'Alt-J',
-        //   department: 'Todd Motto',
-        //   superior: 'Tiny',
-        //   subordinate: 'Tin'
-        // });
       });
 
-    //requesting employee object
-    if (!(this.objectID===undefined)) {
-      this.dataService.getEmployee(this.objectID).subscribe(
-        data => {
-          this.employee = data;
-
-          // this.myForm.controls['name'].setValue(this.employee.name, { onlySelf: true });
-          // this.myForm.controls['position'].setValue(this.employee.position, { onlySelf: true });
-          // this.myForm.controls['department'].setValue(this.employee.department, { onlySelf: true });
-          // this.myForm.controls['superior'].setValue(this.employee.superiorName, { onlySelf: true });
-          // this.myForm.controls['subordinate'].setValue(this.employee.subordinateName, { onlySelf: true });
-
-          // this.myForm.updateValueAndValidity();
+    this.dataService.getEmployee(this.objectID).subscribe(
+        employeeObj => {
+          this.myForm.controls['name'].setValue(employeeObj.name);
+          this.myForm.controls['userID'].setValue(employeeObj.userID);
+          this.myForm.controls['position'].setValue(employeeObj.position);
+          this.myForm.controls['department'].setValue(employeeObj.department);
+          this.myForm.controls['country'].setValue(employeeObj.country);
+          this.myForm.controls['city'].setValue(employeeObj.city);
+          this.myForm.controls['email'].setValue(employeeObj.email);
+          this.myForm.controls['phoneNumber'].setValue(employeeObj.phoneNumber);
+          this.myForm.controls['companyAddress'].setValue(employeeObj.companyAddress);
+          this.myForm.controls['office'].setValue(employeeObj.office);
+          this.myForm.controls['fax'].setValue(employeeObj.fax);
+          this.myForm.controls['startingHours'].setValue(employeeObj.startingHours);
+          this.myForm.controls['finishingHours'].setValue(employeeObj.finishingHours);
+          this.myForm.controls['urlImage'].setValue(employeeObj.urlImage);
+          employeeObj.superiorsUserID.forEach((superiorID) =>
+            (<FormArray>this.myForm.controls['superiorsUserID']).push(this.initSuperiorIDFormGroup(superiorID)));
+          employeeObj.subordinatesUserID.forEach((subordinateID) =>
+            (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.initSubordinateIDFormGroup(subordinateID)));
         },
 
         error => console.log(error),
@@ -125,28 +73,55 @@ export class EditEmployeeComponent implements OnInit{
           this.isLoading = false;
         }
       );
-    }
-  else if(this.objectID===undefined){
-      this.isLoading = false;
-    }
+  }
+
+  addSuperior(){
+    (<FormArray>this.myForm.controls['superiorsUserID']).push(this.createSuperiorIDFormGroup());
+  }
+  removeSuperior(index: number){
+    (<FormArray>this.myForm.controls['superiorsUserID']).removeAt(index);
+  }
+  createSuperiorIDFormGroup(){
+    return new FormGroup({
+      superiorID: new FormControl('')
+    })
+  }
+  initSuperiorIDFormGroup(superiorIDObj) {
+    // console.log("subordinatesUserIDObj", subordinateIDObj);
+    return new FormGroup({
+      superiorID: new FormControl(superiorIDObj.superiorID),
+    });
+  }
+
+  addSubordinate(){
+    (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.createSubordinateIDFormGroup());
+  }
+  removeSubordinate(index: number){
+    (<FormArray>this.myForm.controls['subordinatesUserID']).removeAt(index);
+  }
+  createSubordinateIDFormGroup(){
+    return new FormGroup({
+      subordinateID: new FormControl('')
+    })
+  }
+  initSubordinateIDFormGroup(subordinateIDObj) {
+    // console.log("subordinatesUserIDObj", subordinateIDObj);
+    return new FormGroup({
+      subordinateID: new FormControl(subordinateIDObj.subordinateID),
+    });
   }
 
   cancelEditing(){
-
-    // this.homeComponent.toastCanceledEditing();
+    // console.log(this.myForm.value);
     this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
-    // console.log(this.myForm.value);
-    // console.log(this.myForm.valid.valueOf());
-    // this.homeComponent.cancelEditing();
   }
 
 
   editEmployee(employee) {
-    this.dataService.editEmployee(employee).subscribe(
+    this.dataService.editEmployee(this.objectID, employee).subscribe(
+      //todo remove res
       res => {
-        // this.isEditing = false;
-        // this.employee = employee;
         this.toast.setMessage('item edited successfully.', 'success');
       },
       error => console.log(error),
@@ -155,6 +130,4 @@ export class EditEmployeeComponent implements OnInit{
       }
     );
   }
-
-
 }

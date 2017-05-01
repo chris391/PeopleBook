@@ -1,7 +1,9 @@
 #container{
-  width: 930px;
-  height: 600px;
+  /*width: 930px;*/
+  /*height: 600px;*/
+  width: 100%;
   background-color: wheat;
+  padding: 20px;
 }
 #footer{
   clear: both;
