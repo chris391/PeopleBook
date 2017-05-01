@@ -4,14 +4,22 @@ import {Subject, BehaviorSubject} from "rxjs";
  * Created by Cristian on 27/04/2017.
  */
 @Injectable()
-export class NodeService {
+export class SharedService {
   private searchInput = new Subject();
+  private employee = new Subject();
 
-  getData() {
+
+  getSearchData() {
     return this.searchInput;
   }
 
-  updateData(data: string) {
+  updateSearchData(data: string) {
     this.searchInput.next(data);
+  }
+  getEmployee(){
+    return this.employee;
+  }
+  updateEmployee(data: any){
+    this.employee.next(data);
   }
 }

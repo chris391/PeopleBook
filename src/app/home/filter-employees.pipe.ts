@@ -13,6 +13,7 @@ export class FilterEmployees implements PipeTransform {
     if (search && employees.length > 0) {
       let foundItems = employees.filter(
         employee => employee.name && employee.name.toLowerCase().includes(search.toLowerCase())
+        || employee.position && employee.position.toLowerCase().includes(search.toLowerCase())
       );
       return foundItems;
     }

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {NodeService} from "./shared/service/node-service";
+import {SharedService} from "./shared/service/shared-service";
 import {Subject} from "rxjs";
 
 @Component({
@@ -12,9 +12,9 @@ export class AppComponent implements OnInit{
   ngOnInit() {
   }
   updateData() {
-    this.nodeService.updateData(this.search);
+    this.nodeService.updateSearchData(this.search);
   }
-  constructor(private nodeService: NodeService) {}
+  constructor(private nodeService: SharedService) {}
 
 
 }
