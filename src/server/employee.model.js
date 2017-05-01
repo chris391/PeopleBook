@@ -2,10 +2,21 @@ var mongoose = require('mongoose');
 
 var employeeSchema = mongoose.Schema({
     name: String,
+    userID: String,
     position: String,
     department: String,
-    superiorName: String,
-    subordinateName: String,
+    country: String,
+    city: String,
+    email: String,
+    phoneNumber: String,
+    companyAddress:String,
+    office: String,
+    fax: String,
+    workingHours: String,
+    startTime: String,
+    endTime: String,
+    superiorsUserID: [String],
+    subordinatesUserID: [String],
     urlImage: String
 
 });

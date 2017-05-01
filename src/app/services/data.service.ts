@@ -22,7 +22,7 @@ export class DataService {
   }
 
   addEmployee(employee): Observable<any> {
-    return this.http.put('/employee', JSON.stringify(employee), this.options);
+    return this.http.post('/employee', JSON.stringify(employee), this.options);
   }
 
   editEmployee(employee): Observable<any> {
