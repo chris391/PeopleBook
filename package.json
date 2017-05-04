@@ -28,9 +28,10 @@
     "express": "4.14.1",
     "font-awesome": "^4.7.0",
     "jquery": "3.1.1",
-    "mongoose": "4.8.5",
+    "mongoose": "4.9.7",
+    "mongoose-unique-validator": "^1.0.5",
     "morgan": "1.8.1",
-    "rxjs": "^5.0.1",
+    "rxjs": "^5.3.1",
     "tether": "1.4.0",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.4"
@@ -48,10 +49,11 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
+    "nodemon": "1.11.0",
     "protractor": "~4.0.13",
+    "run-func": "^1.0.1",
     "ts-node": "1.2.1",
     "tslint": "^4.3.0",
-    "typescript": "~2.0.3",
-    "nodemon": "1.11.0"
+    "typescript": "~2.0.3"
   }
 }
