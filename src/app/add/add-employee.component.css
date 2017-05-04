@@ -1,68 +1,27 @@
-/*option {*/
-  /*font-family: verdana;*/
-  /*font-size: 20px;*/
-  /*background-color: #53ace4;*/
-  /*size: 5px;*/
-/*}*/
-/*select{*/
-  /*font-family: verdana;*/
-  /*font-size: 15px;*/
-  /*background-color: #53ace4;*/
-  /*size: 1px;*/
-  /*border: 1px solid blue;*/
-
-/*}*/
-
-.form-control{
-  width:330px;
-
+label{
+  font-weight: bold;
 }
-.alert{
-  width: 330px;
-  text-align: center;
+#superiorAdd{
+  cursor: pointer; color: #07C
 }
-
-/*input[type=text]:focus {*/
-  /*background-color: lightblue;*/
-  /*size: 70px;*/
-
-  /*width:315px;*/
-  /*-webkit-transition: width 0.4s ease-in-out;*/
-  /*transition: width 0.4s ease-in-out;*/
-/*}*/
-#container{
-  background-color: #f5deb3;
-  /*width:auto;*/
-
-  /*margin-left: auto;*/
-  /*margin-right: auto;*/
-  align: center;
-
-
+#subordinateAdd {
+  cursor: pointer; color: #07C
 }
-
-#content{
-  background-color: #f5deb3;
-  width: 330px;
-  /*padding: 10px;*/
+#superiorAdd:hover{
+  text-decoration: underline;
 }
-#left-container{
-  width: auto;
-  /*float: left;*/
-
+#subordinateAdd:hover{
+  text-decoration: underline;
 }
-#right-container{
-  width: auto;
-  /*float: right;*/
-
+#superiorRemove{
+  cursor: pointer; color: #07C
 }
-#footer{
-  clear: both;
-
+#subordinateRemove {
+  cursor: pointer; color: #07C
 }
-#id3{
-  /*background-color: #45bf94;*/
-  /*height: 20px;*/
-  padding: -50px;
-  line-height: normal;
+#superiorRemove:hover{
+  text-decoration: underline;
+}
+#subordinateRemove:hover{
+  text-decoration: underline;
 }

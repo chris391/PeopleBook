@@ -24,6 +24,9 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   ngOnInit() {
+
+
+
     this.myForm = this.fb.group({
       name: [''], //['', Validators.compose[Validators.required]]
       userID: [''], //['', Validators.compose[Validators.required]]
@@ -76,10 +79,18 @@ export class AddEmployeeComponent implements OnInit{
   addEmployee(employee) {
     this.dataService.addEmployee(employee).subscribe(
       res => {
-        this.toast.setMessage('item added successfully', 'success');
+
       },
-      error => console.log(error),
+      error => {
+        if(error.status === 412){
+          console.log(error);
+          window.alert('UserID has to be unique!');
+        } else {
+          console.log(error);
+        }
+      },
       () => {
+        this.toast.setMessage('item added successfully', 'success');
         this.router.navigateByUrl('home');
       }
     )

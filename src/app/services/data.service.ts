@@ -16,24 +16,24 @@ export class DataService {
     return this.http.get('/employees').map(res => res.json());
   }
 
-  getEmployee(id: number): Observable<any> {
+  getEmployee(userID: string): Observable<any> {
     // console.log(employee._id);
-    return this.http.get(`/employee/${id}`).map(res => res.json());
+    return this.http.get(`/employee/${userID}`).map(res => res.json());
   }
 
   addEmployee(employee): Observable<any> {
     return this.http.post('/employee', JSON.stringify(employee), this.options);
   }
 
-  editEmployee(id: number, employee): Observable<any> {
-    return this.http.put(`/employee/${id}`, JSON.stringify(employee), this.options);
+  editEmployee(employee): Observable<any> {
+    return this.http.put(`/employee/${employee.userID}`, JSON.stringify(employee), this.options);
   }
   // editEmployee(employee): Observable<any> {
   //   return this.http.put(`/employee/${employee._id}`, JSON.stringify(employee), this.options);
   // }
 
   deleteEmployee(employee): Observable<any> {
-    return this.http.delete(`/employee/${employee._id}`, this.options);
+    return this.http.delete(`/employee/${employee.userID}`, this.options);
   }
 
 }
