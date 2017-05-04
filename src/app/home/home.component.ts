@@ -27,7 +27,7 @@ import {SharedService} from "../shared/service/shared-service";
     <div class="row">
       <div class="col-xs-10 col-sm-6 col-md-4 col-lg-3"
            *ngFor="let employee of employees | filterEmployees: searchInput">
-        <employee [employeeThumbnail]="employee"></employee>
+      <employee [employee] ="employee"></employee>
       </div>
       <!--<div><p>data from Service HERE:</p><p style="color:red"> {{searchInput}}</p></div>-->
     </div>

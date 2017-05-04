@@ -86,20 +86,26 @@ img{
   float: right;
   background-color: transparent;
 }
-#info {
+#info ul{
   /*text-align: left;*/
   /*display: block;*/
   border: 0;
   margin:0;
   padding:0;
 }
+#editUl{
+  cursor: pointer;  color: #07C;
+}
 #editUl:hover{
   text-decoration: underline;
+
+}
+#deleteUl{
   cursor: pointer;  color: #07C;
 }
 #deleteUl:hover{
   text-decoration: underline;
-  cursor: pointer;  color: #07C;
+
 }
 
 

@@ -39,8 +39,8 @@ db.once('open', function() {
   // find by id
   app.get('/employee/:id', function(req, res) {
 
-    // Employee.findOne({"name": req.params.id}, function(err, obj) {
-    Employee.findOne({_id: req.params.id}, function(err, obj) {
+    Employee.findOne({"userID": req.params.id}, function(err, obj) {
+    // Employee.findOne({: req.params.id}, function(err, obj) {
       if(err) return console.error(err);
       res.json(obj);
     })
@@ -60,25 +60,36 @@ db.once('open', function() {
     // console.log('in app.js');
     // console.log(obj);
     obj.save(function(err, obj) {
-      if(err) return console.error(err);
+      if (err) {
+        if(err.name==='ValidationError'){
+          res.status(412).json(obj);
+          return console.error(err);
+        }else {
+          res.status(400);
+          return console.error(err);
+        }
+      }
       res.status(200).json(obj);
     });
   });
 
   // update by id
   app.put('/employee/:id', function(req, res) {
-    Employee.findOneAndUpdate({_id: req.params.id}, req.body, function(err) {
-      if(err) return console.error(err);
-      res.sendStatus(200);
-    })
+    // Employee.findOne({"userID": req.params.id}, function(err, obj) {
+
+      Employee.findOneAndUpdate({"userID": req.params.id}, function (err,obj) {
+        if(err) return console.error(err);
+        res.sendStatus(200);
+      })
   });
 
   // delete by id
   app.delete('/employee/:id', function(req, res) {
-    Employee.findOneAndRemove({_id: req.params.id}, function(err) {
+    //Employee.findOneAndRemove({_id: req.params.id}, function(err) {
+    Employee.findOneAndRemove({"userID": req.params.id}, function(err){
       if(err) return console.error(err);
       res.sendStatus(200);
-    });
+    })
   });
 
   // delete ALL

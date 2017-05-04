@@ -11,15 +11,15 @@ import {SharedService} from "../shared/service/shared-service";
 
 @Component({
   selector: 'employee',
-  styleUrls: ['employee-thumbnail..component.css'],
+  styleUrls: ['employee-thumbnail.component.css'],
   template:`
-    <h2 (click)="gotoEmployeeProfile()">{{employeeThumbnail.name}} </h2>
+    <h2 (click)="gotoEmployeeProfile()">{{employee.name}} </h2>
     <!--<img class="img-fluid" src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/H-P/polar-bear-cub-on-mom.jpg" -->
-    <img class="img-fluid" src={{employeeThumbnail.urlImage}}
+    <img class="img-fluid" src={{employee.urlImage}}
     alt="Image">
-    <div>Position: {{employeeThumbnail.position}}</div>
-    <div>Department: {{employeeThumbnail.department}}</div>
-    <div>Subordinate: {{employeeThumbnail.subordinateName}}</div>
+    <div>Position: {{employee.position}}</div>
+    <div>Department: {{employee.department}}</div>
+    <div>E-mail: {{employee.email}}</div>
     <div class="tools">
       <svg class="favorite" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path
@@ -44,11 +44,11 @@ import {SharedService} from "../shared/service/shared-service";
 
 
 export class EmployeeThumbnailComponent{
-  @Input() employeeThumbnail;
+  @Input() employee;
 
 
   gotoEmployeeEdit(): void {
-  let link = ['/edit', this.employeeThumbnail._id];
+  let link = ['/edit', this.employee.userID];
   this.router.navigate(link);
 
 }
@@ -64,15 +64,15 @@ export class EmployeeThumbnailComponent{
   enableEditing(employee){
     this.homeComponent.enableEditing(employee);
   }
-  deleteEmployee(employee) {
+  deleteEmployee() {
     if (window.confirm('Are you sure you want to permanently delete this item?')) {
-      this.dataService.deleteEmployee(employee).subscribe(
+      this.dataService.deleteEmployee(this.employee).subscribe(
         res => {
         },
         error => console.log(error),
         () => {
           this.toast.setMessage('item deleted successfully.', 'success');
-          let index = this.homeComponent.employees.indexOf(employee);
+          let index = this.homeComponent.employees.indexOf(this.employee);
           this.homeComponent.employees.splice(index, 1);
 
         }
@@ -81,9 +81,9 @@ export class EmployeeThumbnailComponent{
 
   }
   gotoEmployeeProfile() : void{
-    // this.sharedService.updateEmployee(this.employeeThumbnail);
+    // this.sharedService.updateEmployee(this.employee);
     // this.sharedService.getEmployee().subscribe(e=> console.log('s'));
-    let link = ['/profile', this.employeeThumbnail._id ];
+    let link = ['/profile', this.employee.userID];
     this.router.navigate(link);
   }
 

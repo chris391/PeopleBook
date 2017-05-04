@@ -47,9 +47,13 @@
 
 
       <ul>
-        <li>Superior</li>
-        <li>Employee</li>
-        <li>Subordinate</li>
+        <li *ngFor="let superior of superiors">{{superior.superiorID}}</li>
+        <li><i class="fa fa-chevron-circle-up"></i><b> Superiors</b> </li>
+        <hr>
+        <li>{{employee.name}}</li>
+        <hr>
+        <li><i class="fa fa-chevron-circle-down"></i><b>Subordinates</b> </li>
+        <li *ngFor="let subordinate of subordinates">{{subordinate.subordinateID}}</li>
 
 
       </ul>

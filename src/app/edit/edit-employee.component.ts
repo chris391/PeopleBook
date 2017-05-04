@@ -119,14 +119,22 @@ export class EditEmployeeComponent {
 
 
   editEmployee(employee) {
-    this.dataService.editEmployee(this.objectID, employee).subscribe(
+    this.dataService.editEmployee(employee).subscribe(
       //todo remove res
       res => {
-        this.toast.setMessage('item edited successfully.', 'success');
       },
-      error => console.log(error),
+      error =>{
+        if (error.status===412){
+          console.log(error);
+          // console.log('MY ERROR');
+          window.alert('UserID has to be unique!')
+        }else{
+          console.log(error)
+        }
+      } ,
       () => {
         this.router.navigateByUrl('home');
+        this.toast.setMessage('item edited successfully.', 'success');
       }
     );
   }

@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
 var employeeSchema = mongoose.Schema({
   name: String,
-  userID: String,
+  userID: {type: String, required: true, unique: true, uppercase: true, },
   position: String,
   department: String,
   country: String,
@@ -18,6 +19,8 @@ var employeeSchema = mongoose.Schema({
   subordinatesUserID: [{subordinateID: String}],
   urlImage: String
 });
+
+employeeSchema.plugin(uniqueValidator);
 
 var Employee = mongoose.model('Employee', employeeSchema);
 

@@ -15,6 +15,8 @@ export class EmployeeProfileComponent implements OnInit {
   employee : any;
   objectID : any;
   isLoading = true;
+  superiors=[];
+  subordinates=[];
 
 
   constructor(private sharedService : SharedService, private route : ActivatedRoute, private dataService: DataService, private router: Router,
@@ -32,9 +34,14 @@ export class EmployeeProfileComponent implements OnInit {
 
     this.dataService.getEmployee(this.objectID).subscribe(employee=>{
       this.employee = employee;
+      this.superiors = employee.superiorsUserID;
+      this.subordinates = employee.subordinatesUserID;
+
     },
       error=> console.log(error),
-      ()=> this.isLoading = false
+      ()=> {
+        this.isLoading = false;
+      }
     )
 
 
