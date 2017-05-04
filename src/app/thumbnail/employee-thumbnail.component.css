@@ -73,4 +73,7 @@ h2 {
   cursor: pointer;
   text-decoration: none;
 }
+#employeeName:hover {
+  cursor: pointer;
+}
 

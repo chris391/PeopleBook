@@ -1,3 +1,61 @@
-<p>
-  employee-profile works!
-</p>
+<div *ngIf="isLoading">Loading ...</div>
+<div *ngIf="!isLoading">
+
+  <div id="container">
+    <div id="left">
+
+      <ul>
+        <li id="editUl" (click)="gotoEdit()" > Edit </li>
+
+        <li></li>
+        <li id="deleteUl" (click)="deleteEmployee()"> Delete </li>
+      </ul>
+    </div>
+
+    <div id="center">
+      <div id="picture">
+        <div>
+
+          <img
+            src={{employee.urlImage}}>
+
+        </div>
+
+      </div>
+      <div id="info">
+        <h2>{{employee.name}}</h2>
+        <h5>{{employee.position}}, {{employee.department}}</h5>
+        <ul>
+          <li>Country: {{employee.country}}</li>
+          <li>City: {{employee.city}}</li>
+          <li>E-mail: {{employee.email}}</li>
+          <li>Phone Number: {{employee.email}}</li>
+          <hr>
+          <li>User ID: {{employee.userID}}</li>
+          <li>Position: {{employee.position}}</li>
+          <li>Department: {{employee.department}}</li>
+          <li>Company Address: {{employee.companyAddress}}</li>
+          <li>Office Number: {{employee.office}}</li>
+          <li>Fax: {{employee.fax}}</li>
+          <li>Working Hours: {{employee.startingHours}}-{{employee.finishingHours}}</li>
+        </ul>
+
+
+      </div>
+    </div>
+    <div id="right">
+
+
+      <ul>
+        <li>Superior</li>
+        <li>Employee</li>
+        <li>Subordinate</li>
+
+
+      </ul>
+    </div>
+
+
+  </div>
+</div>
+
