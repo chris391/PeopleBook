@@ -4,6 +4,10 @@
   width: 100%;
   background-color: wheat;
   padding: 20px;
+  /*height: 100vh;*/
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*bottom:0;*/
 }
 #footer{
   clear: both;

@@ -15,7 +15,7 @@ export class EditEmployeeComponent {
   isLoading = true;
   public myForm: FormGroup;
   form: FormGroup;
-  private objectID: any;
+  objectID: any;
   myModel:any;
 
   constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}

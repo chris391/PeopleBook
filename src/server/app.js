@@ -29,7 +29,7 @@ db.once('open', function() {
   // APIs
   // select all
   app.get('/employees', function(req, res) {
-    console.log(req.protocol + '://' + req.get('host') + req.originalUrl);//http://localhost:4200/employees
+    // console.log(req.protocol + '://' + req.get('host') + req.originalUrl);//http://localhost:4200/employees
     Employee.find({}, function(err, docs) {
       if(err) return console.error(err);
       res.json(docs);

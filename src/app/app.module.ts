@@ -26,7 +26,7 @@ const routing = RouterModule.forRoot([
   //fixme
   {path: 'add', component: AddEmployeeComponent},
   {path: 'edit/:id', component: EditEmployeeComponent},
-  {path: 'profile/:id', component: EmployeeProfileComponent}
+  {path: 'profile/:id', component: EmployeeProfileComponent},
   // {path: 'edit', component: EditEmployeeComponent},
 ]);
 
