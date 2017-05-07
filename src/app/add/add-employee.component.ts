@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveForm
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
+import {CustomValidators} from "../custom-validators/custom.validators";
 
 @Component({
   selector: "add-employee",
@@ -28,22 +29,22 @@ export class AddEmployeeComponent implements OnInit{
 
 
     this.myForm = this.fb.group({
-      name: [''], //['', Validators.compose[Validators.required]]
-      userID: [''], //['', Validators.compose[Validators.required]]
-      position: [''], //['', Validators.compose[Validators.required]]
-      department: [''], //['', Validators.compose[Validators.required]]
-      country: [''],  //['', Validators.compose[Validators.required]]
-      city: [''], //['', Validators.compose[Validators.required]]
-      email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
-      phoneNumber: [''],  //['', Validators.compose[Validators.required]]
-      companyAddress:[''],  //['', Validators.compose[Validators.required]]
-      office: [''], //['', Validators.compose[Validators.required]]
-      fax: [''],  //['', Validators.compose[Validators.required]]
-      startingHours:[''], //['', Validators.compose[Validators.required]]
-      finishingHours:[''],  //['', Validators.compose[Validators.required]]
+      name: ['', Validators.compose([Validators.required])],
+      userID: ['', Validators.compose([Validators.required, CustomValidators.validateUserID])],
+      position: ['', Validators.compose([Validators.required])],
+      department: ['', Validators.compose([Validators.required])],
+      country: ['', Validators.compose([Validators.required])],
+      city: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, CustomValidators.validateEmail])],
+      phoneNumber: ['', Validators.compose([Validators.required])],
+      companyAddress:['', Validators.compose([Validators.required])],
+      office: ['', Validators.compose([Validators.required])],
+      fax: ['', Validators.compose([Validators.required])],
+      startingHours:['', Validators.compose([Validators.required])],
+      finishingHours:['', Validators.compose([Validators.required])],
       superiorsUserID: this.fb.array([]),
       subordinatesUserID: this.fb.array([]),
-      urlImage: [''], //['', Validators.compose[Validators.required]]
+      urlImage: ['', Validators.compose([Validators.required])],
     });
   }
 

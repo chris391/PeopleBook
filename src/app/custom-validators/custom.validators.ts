@@ -12,7 +12,17 @@ import {FormControl} from "@angular/forms";
       }
     }
   }
+
+   static validateUserID(form: FormControl) {
+     let pattern: RegExp = /[p]+[0-9]/;
+     return pattern.test(form.value) ? null : {
+       validateUserID: {
+         valid: false
+       }
+     }
+   }
 }
+
 
 
  // let pattern:RegExp = /\S+@\S+\.\S+/;
