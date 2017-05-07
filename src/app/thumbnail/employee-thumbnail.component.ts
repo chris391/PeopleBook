@@ -13,7 +13,7 @@ import {SharedService} from "../shared/service/shared-service";
   selector: 'employee',
   styleUrls: ['employee-thumbnail.component.css'],
   template:`
-    <h2 (click)="gotoEmployeeProfile()">{{employee.name}} </h2>
+    <h2 id="employeeName" (click)="gotoEmployeeProfile()">{{employee.name}} </h2>
     <!--<img class="img-fluid" src="http://kids.nationalgeographic.com/content/dam/kids/photos/animals/Mammals/H-P/polar-bear-cub-on-mom.jpg" -->
     <img class="img-fluid" src={{employee.urlImage}}
     alt="Image">
@@ -46,18 +46,12 @@ import {SharedService} from "../shared/service/shared-service";
 export class EmployeeThumbnailComponent{
   @Input() employee;
 
-
-  gotoEmployeeEdit(): void {
-  let link = ['/edit', this.employee.userID];
-  this.router.navigate(link);
-
-}
-
   constructor(private homeComponent: HomeComponent, private router: Router, private dataService: DataService,
               private toast: ToastComponent, private sharedService: SharedService){
   }
 
   ngOnInit(){//fixme
+
     // this.employee = this.homeComponent.employee;
   }
 
@@ -80,10 +74,16 @@ export class EmployeeThumbnailComponent{
     }
 
   }
+  gotoEmployeeEdit(): void {
+    let link = ['/edit', this.employee.userID];
+    this.router.navigate(link);
+
+  }
   gotoEmployeeProfile() : void{
     // this.sharedService.updateEmployee(this.employee);
     // this.sharedService.getEmployee().subscribe(e=> console.log('s'));
-    let link = ['/profile', this.employee.userID];
+    this.sharedService.updateEmployee(this.employee);
+    let link = ['/profile', this.employee.userID ];
     this.router.navigate(link);
   }
 

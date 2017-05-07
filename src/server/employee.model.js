@@ -3,7 +3,7 @@ var uniqueValidator = require('mongoose-unique-validator');
 
 var employeeSchema = mongoose.Schema({
   name: String,
-  userID: {type: String, required: true, unique: true, uppercase: true, },
+  userID: {type: String, required: true, unique: true, uppercase: true},
   position: String,
   department: String,
   country: String,
@@ -15,8 +15,8 @@ var employeeSchema = mongoose.Schema({
   fax: String,
   startingHours: String,
   finishingHours: String,
-  superiorsUserID: [{superiorID: String}],
-  subordinatesUserID: [{subordinateID: String}],
+  superiorsUserID: [{superiorID: {type: String, uppercase: true}}],
+  subordinatesUserID: [{subordinateID: {type: String, uppercase: true}}],
   urlImage: String
 });
 

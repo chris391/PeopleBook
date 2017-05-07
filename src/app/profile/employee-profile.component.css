@@ -96,16 +96,26 @@ img{
 #editUl{
   cursor: pointer;  color: #07C;
 }
-#editUl:hover{
-  text-decoration: underline;
-
-}
 #deleteUl{
   cursor: pointer;  color: #07C;
 }
+#editUl:hover{
+  text-decoration: underline;
+}
 #deleteUl:hover{
   text-decoration: underline;
-
+}
+#superior{
+  cursor: pointer;  color: #07C;
+}
+#subordinate{
+  cursor: pointer;  color: #07C;
+}
+#superior:hover{
+  text-decoration: underline;
+}
+#subordinate:hover{
+  text-decoration: underline;
 }
 
 

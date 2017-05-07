@@ -4,15 +4,13 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveForm
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
-import * as webdriver from "selenium-webdriver";
-import elementIsSelected = webdriver.until.elementIsSelected;
 
 @Component({
   selector: "add-employee",
   styleUrls: ["add-employee.component.css"],
   templateUrl: "add-employee.component.html"
 })
-export class AddEmployeeComponent implements OnInit {
+export class AddEmployeeComponent implements OnInit{
   isLoading = true;
   myForm: FormGroup;
 
@@ -26,6 +24,9 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
+
     this.myForm = this.fb.group({
       name: [''], //['', Validators.compose[Validators.required]]
       userID: [''], //['', Validators.compose[Validators.required]]
@@ -35,42 +36,37 @@ export class AddEmployeeComponent implements OnInit {
       city: [''], //['', Validators.compose[Validators.required]]
       email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
       phoneNumber: [''],  //['', Validators.compose[Validators.required]]
-      companyAddress: [''],  //['', Validators.compose[Validators.required]]
+      companyAddress:[''],  //['', Validators.compose[Validators.required]]
       office: [''], //['', Validators.compose[Validators.required]]
       fax: [''],  //['', Validators.compose[Validators.required]]
-      startingHours: [''], //['', Validators.compose[Validators.required]]
-      finishingHours: [''],  //['', Validators.compose[Validators.required]]
+      startingHours:[''], //['', Validators.compose[Validators.required]]
+      finishingHours:[''],  //['', Validators.compose[Validators.required]]
       superiorsUserID: this.fb.array([]),
       subordinatesUserID: this.fb.array([]),
       urlImage: [''], //['', Validators.compose[Validators.required]]
     });
   }
 
-  addSuperior() {
+  addSuperior(){
     (<FormArray>this.myForm.controls['superiorsUserID']).push(this.createSuperiorIDFormGroup())
   }
-
-  removeSuperior(index: number) {
+  removeSuperior(index: number){
     (<FormArray>this.myForm.controls['superiorsUserID']).removeAt(index);
   }
-
-  createSuperiorIDFormGroup() {
+  createSuperiorIDFormGroup(){
     return new FormGroup({
-      superiorID: new FormControl('')
+      superiorID : new  FormControl('')
     })
   }
-
-  addSubordinate() {
+  addSubordinate(){
     (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.createSubordinateIDFormGroup())
   }
-
-  removeSubordinate(index: number) {
+  removeSubordinate(index: number){
     (<FormArray>this.myForm.controls['subordinatesUserID']).removeAt(index);
   }
-
-  createSubordinateIDFormGroup() {
+  createSubordinateIDFormGroup(){
     return new FormGroup({
-      subordinateID: new FormControl('')
+      subordinateID : new  FormControl('')
     })
   }
 
@@ -86,17 +82,16 @@ export class AddEmployeeComponent implements OnInit {
 
       },
       error => {
-        if (error.status === 412) {
+        if(error.status === 412){
           console.log(error);
           window.alert('UserID has to be unique!');
         } else {
-          console.log(error)
+          console.log(error);
         }
       },
-
       () => {
-        this.router.navigateByUrl('home');
         this.toast.setMessage('item added successfully', 'success');
+        this.router.navigateByUrl('home');
       }
     )
   }

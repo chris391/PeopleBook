@@ -29,6 +29,7 @@ db.once('open', function() {
   // APIs
   // select all
   app.get('/employees', function(req, res) {
+    console.log(req.protocol + '://' + req.get('host') + req.originalUrl);//http://localhost:4200/employees
     Employee.find({}, function(err, docs) {
       if(err) return console.error(err);
       res.json(docs);
@@ -40,7 +41,6 @@ db.once('open', function() {
   app.get('/employee/:id', function(req, res) {
 
     Employee.findOne({"userID": req.params.id}, function(err, obj) {
-    // Employee.findOne({: req.params.id}, function(err, obj) {
       if(err) return console.error(err);
       res.json(obj);
     })
@@ -75,21 +75,18 @@ db.once('open', function() {
 
   // update by id
   app.put('/employee/:id', function(req, res) {
-    // Employee.findOne({"userID": req.params.id}, function(err, obj) {
-
-      Employee.findOneAndUpdate({"userID": req.params.id}, function (err,obj) {
-        if(err) return console.error(err);
-        res.sendStatus(200);
-      })
+    Employee.findOneAndUpdate({"userID" : req.params.id}, req.body, function(err) {
+      if(err) return console.error(err);
+      res.sendStatus(200);
+    })
   });
 
   // delete by id
   app.delete('/employee/:id', function(req, res) {
-    //Employee.findOneAndRemove({_id: req.params.id}, function(err) {
-    Employee.findOneAndRemove({"userID": req.params.id}, function(err){
+    Employee.findOneAndRemove({"userID": req.params.id}, function(err) {
       if(err) return console.error(err);
       res.sendStatus(200);
-    })
+    });
   });
 
   // delete ALL
