@@ -83,6 +83,6 @@ export class HomeComponent{
   }
 
   toastCanceledEditing(){
-    this.toast.setMessage('item editing canceled', 'warning');
+      this.toast.setMessage('item editing canceled', 'warning');
   }
 }

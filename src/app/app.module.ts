@@ -1,4 +1,4 @@
-;
+
 import { EmployeeProfileComponent } from './profile/employee-profile.component';
 import { BrowserModule } from '@angular/platform-browser';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
@@ -15,20 +15,9 @@ import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
 import {FilterEmployees} from "./home/filter-employees.pipe";
 import {SharedService} from "./shared/service/shared-service";
+import {RoutingModule} from "./routing/routing.component";
 
 
-
-//todo add routes here
-const routing = RouterModule.forRoot([
-  {path: '',redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent},
-  {path: 'employees/:id', component: EditEmployeeComponent},
-  //fixme
-  {path: 'add', component: AddEmployeeComponent},
-  {path: 'edit/:id', component: EditEmployeeComponent},
-  {path: 'profile/:id', component: EmployeeProfileComponent}
-  // {path: 'edit', component: EditEmployeeComponent},
-]);
 
 @NgModule({
   declarations: [
@@ -43,13 +32,16 @@ const routing = RouterModule.forRoot([
     AddEmployeeComponent,
     FilterEmployees,
     EmployeeProfileComponent
+
+
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RoutingModule
 
   ],
   // exports: [EmployeeThumbnailComponent],

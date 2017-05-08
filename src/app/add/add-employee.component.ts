@@ -15,9 +15,10 @@ export class AddEmployeeComponent implements OnInit{
   isLoading = true;
   myForm: FormGroup;
 
+  AddEmployeeComponent(){}
+
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
-              private route: ActivatedRoute,
               private dataService: DataService,
               private router: Router,
               private toast: ToastComponent) {
@@ -25,9 +26,6 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   ngOnInit() {
-
-
-
     this.myForm = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
       userID: ['', Validators.compose([Validators.required, CustomValidators.validateUserID])],
@@ -92,7 +90,7 @@ export class AddEmployeeComponent implements OnInit{
       },
       () => {
         this.toast.setMessage('item added successfully', 'success');
-        this.router.navigateByUrl('home');
+        // this.router.navigateByUrl('home');
       }
     )
   }
