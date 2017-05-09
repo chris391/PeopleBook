@@ -1,13 +1,78 @@
 /* tslint:disable:no-unused-variable */
+<<<<<<< HEAD
+//
+// import {TestBed, async, inject, tick, fakeAsync} from '@angular/core/testing';
+// import { DataService } from './data.service';
+// import {
+//   BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response, HttpModule,
+//   XHRBackend
+// } from "@angular/http";
+// import {MockBackend} from "@angular/http/testing";
+// import {ActivatedRoute} from "@angular/router";
+//
+// describe('DataService', () => {
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({
+//       // imports: [HttpModule],
+//       providers: [
+//         BaseRequestOptions,
+//         DataService,
+//         MockBackend,
+//
+//         {
+//           provide: Http, useFactory: (backend: ConnectionBackend, defaultOptions: BaseRequestOptions) => {
+//           return new Http(backend, defaultOptions); }, deps: [MockBackend, BaseRequestOptions]
+//         }
+//       ]
+//     });
+//   });
+//
+//     describe('getEmploye()', () =>{
+//       it('should return an Observable<any>',inject([DataService, MockBackend], fakeAsync((dataService, mockBackend) => {
+//         let response;
+//         const mockResponse={
+//           data:[
+//             {userID: 'P01', name: 'Carlos' },
+//             {userID:'P02', name: 'Cris'},
+//             {userID:'P03', name: "Coco"}
+//           ]
+//         };
+//
+//
+//         mockBackend.connections.subscribe((connection) => {
+//           expect(connection.request.url).toBe('/employees');
+//           // let response = new ResponseOptions({body: '{"name": "Employee 0"}'});
+//           let response = new ResponseOptions({body: JSON.stringify(mockResponse)});
+//
+//           connection.mockRespond(new Response(response));
+//
+//         });
+//
+//
+//         dataService.getEmployees().subscribe(employees => {
+//           response = employees;
+//         });
+//         tick();
+//         // expect(employees.length.toBe(1));
+//         expect(response.length).toBe(3);
+//         // expect(response[0].userID).toEqual('P01');
+//       })))
+//     });
+//
+//   });
+//
+//
+//
+=======
 
 import {TestBed, async, inject, tick, fakeAsync} from '@angular/core/testing';
 import { DataService } from './data.service';
 import {
-  BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response, HttpModule, Headers
+  BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response, HttpModule,
+  XHRBackend, Headers, BaseResponseOptions
 } from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
 
-//tests including successful scenarios and custom error status except errors on the server-side e.g. db down, internet failure
 describe('DataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,7 +94,7 @@ describe('DataService', () => {
         const mockResponse = [
           {userID: 'P01', name: 'Carlos'},
           {userID:'P02', name: 'Cris'},
-          {userID:'P03', name: 'Henny'}
+          {userID:'P03', name: "Henny"}
           ];
         let response;
 
@@ -105,9 +170,9 @@ describe('DataService', () => {
       expect(response._body.name).toBe('Marco');
     })));
 
-    it('should send status 412 if object added doesnt contain unique user ID', inject([DataService, MockBackend], fakeAsync((dataService, mockBackend) =>{
+    it('should send status 412 if object added doesnt contain required user ID(Validation error-uniqueness required)', inject([DataService, MockBackend], fakeAsync((dataService, mockBackend) =>{
 
-    let employee = {userID: 'P01', name: 'Leon'}; //an employee with this userID already exists
+    let employee = {userID: 'BF35', name: 'Leon'};
     let headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
     let response;
 
@@ -179,3 +244,4 @@ describe('DataService', () => {
 });
 
 
+>>>>>>> parent of e6639ec... PB-0 tests for add-employee, edit-employee tests added

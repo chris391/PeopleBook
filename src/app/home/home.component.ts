@@ -14,11 +14,6 @@ import {SharedService} from "../shared/service/shared-service";
   template:`
     <app-toast [message]="toast.message"></app-toast>
 
-    <div *ngIf="isEditing">
-      <!--                  binding target - binding source-->
-      <edit-employee></edit-employee>
-    </div>
-
     <div id="btn-padding">
       <button id="btn-styling" class="btn btn-lg btn-primary" (click)="gotoAddEmployee()"><i class="fa fa-plus"></i>
       </button>
@@ -26,17 +21,17 @@ import {SharedService} from "../shared/service/shared-service";
 
     <div class="row">
       <div id="employeeThumbnail" class="col-xs-10 col-sm-6 col-md-4 col-lg-3"
-           *ngFor="let employee of employees | filterEmployees: searchInput">
+           *ngFor="let employee of employees | filterEmployeesPipe: searchInput">
         <employee [employee]="employee"></employee>
       </div>
+      <!--<div><p>data from Service HERE:</p><p style="color:red"> {{searchInput}}</p></div>-->
     </div>
-    <div id="date"> {{currentDateMs | date}} </div>
   `
 })
 @Injectable()
 export class HomeComponent{
-  currentDateMs =  Date.now();
   searchInput: any;
+
   employees = [];
   employee = {};
   isLoading = true;
@@ -51,21 +46,26 @@ export class HomeComponent{
     this.nodeService.getSearchData().subscribe(data => {
       this.searchInput = data;
     })
+
   }
 
   getEmployees(){
     this.dataService.getEmployees().subscribe(
-      data => {
-        this.employees = data;
-      },
+      data => this.employees = data,
       error => console.log(error),
       () => this.isLoading=false
-    )}
+    );
+  }
+<<<<<<< HEAD
+=======
 
+>>>>>>> parent of e6639ec... PB-0 tests for add-employee, edit-employee tests added
   enableEditing(employee){
     this.isEditing = true;
     this.employee = employee;
   }
+<<<<<<< HEAD
+=======
   gotoEmployeeProfile(employee){
     this.employee = employee;
   }
@@ -73,11 +73,17 @@ export class HomeComponent{
   cancelEditing() {
     this.isEditing = false;
     this.employee = {};
-
+    // reload the cats to reset the editing
     this.getEmployees();
   }
+>>>>>>> parent of e6639ec... PB-0 tests for add-employee, edit-employee tests added
   gotoAddEmployee(): void {
     let link = ['/add'];
     this.router.navigate(link);
+
+  }
+
+  toastCanceledEditing(){
+    this.toast.setMessage('item editing canceled', 'warning');
   }
 }

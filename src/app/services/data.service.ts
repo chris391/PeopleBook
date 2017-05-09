@@ -13,13 +13,11 @@ export class DataService {
   constructor(private http: Http) { }
 
   getEmployees(): Observable<any> {
-    // this.http.get(`/employees`).map(res => res.json()).forEach(val => console.log(val));
     return this.http.get('/employees').map(res => res.json());
   }
 
   getEmployee(userID: string): Observable<any> {
     // console.log(employee._id);
-
     return this.http.get(`/employee/${userID}`).map(res => res.json());
   }
 
