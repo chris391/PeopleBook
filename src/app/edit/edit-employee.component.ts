@@ -46,35 +46,33 @@ export class EditEmployeeComponent {
       });
 
     this.dataService.getEmployee(this.objectID).subscribe(
-        employeeObj => {
+      employeeObj => {
+        this.myForm.controls['name'].setValue(employeeObj.name);
+        this.myForm.controls['userID'].setValue(employeeObj.userID);
+        this.myForm.controls['position'].setValue(employeeObj.position);
+        this.myForm.controls['department'].setValue(employeeObj.department);
+        this.myForm.controls['country'].setValue(employeeObj.country);
+        this.myForm.controls['city'].setValue(employeeObj.city);
+        this.myForm.controls['email'].setValue(employeeObj.email);
+        this.myForm.controls['phoneNumber'].setValue(employeeObj.phoneNumber);
+        this.myForm.controls['companyAddress'].setValue(employeeObj.companyAddress);
+        this.myForm.controls['office'].setValue(employeeObj.office);
+        this.myForm.controls['fax'].setValue(employeeObj.fax);
+        this.myForm.controls['startingHours'].setValue(employeeObj.startingHours);
+        this.myForm.controls['finishingHours'].setValue(employeeObj.finishingHours);
+        this.myForm.controls['urlImage'].setValue(employeeObj.urlImage);
+        employeeObj.superiorsUserID.forEach((superiorID) =>
+          (<FormArray>this.myForm.controls['superiorsUserID']).push(this.initSuperiorIDFormGroup(superiorID)));
+        employeeObj.subordinatesUserID.forEach((subordinateID) =>
+          (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.initSubordinateIDFormGroup(subordinateID)));
+      },
 
-          this.myForm.controls['_id'].setValue(employeeObj._id);
-          this.myForm.controls['name'].setValue(employeeObj.name);
-          this.myForm.controls['userID'].setValue(employeeObj.userID);
-          this.myForm.controls['position'].setValue(employeeObj.position);
-          this.myForm.controls['department'].setValue(employeeObj.department);
-          this.myForm.controls['country'].setValue(employeeObj.country);
-          this.myForm.controls['city'].setValue(employeeObj.city);
-          this.myForm.controls['email'].setValue(employeeObj.email);
-          this.myForm.controls['phoneNumber'].setValue(employeeObj.phoneNumber);
-          this.myForm.controls['companyAddress'].setValue(employeeObj.companyAddress);
-          this.myForm.controls['office'].setValue(employeeObj.office);
-          this.myForm.controls['fax'].setValue(employeeObj.fax);
-          this.myForm.controls['startingHours'].setValue(employeeObj.startingHours);
-          this.myForm.controls['finishingHours'].setValue(employeeObj.finishingHours);
-          this.myForm.controls['urlImage'].setValue(employeeObj.urlImage);
-          employeeObj.superiorsUserID.forEach((superiorID) =>
-            (<FormArray>this.myForm.controls['superiorsUserID']).push(this.initSuperiorIDFormGroup(superiorID)));
-          employeeObj.subordinatesUserID.forEach((subordinateID) =>
-            (<FormArray>this.myForm.controls['subordinatesUserID']).push(this.initSubordinateIDFormGroup(subordinateID)));
-        },
+      error => console.log(error),
 
-        error => console.log(error),
-
-        () => {
-          this.isLoading = false;
-        }
-      );
+      () => {
+        this.isLoading = false;
+      }
+    );
   }
 
   addSuperior(){
@@ -122,20 +120,21 @@ export class EditEmployeeComponent {
 
   editEmployee(employee) {
     this.dataService.editEmployee(employee).subscribe(
+      //todo remove res
       res => {
-
       },
       error =>{
-        if (error.status === 412){
+        if (error.status===412){
           console.log(error);
-          window.alert('UserID has to be unique!');
-        } else {
-          console.log(error);
+          // console.log('MY ERROR');
+          window.alert('UserID has to be unique!')
+        }else{
+          console.log(error)
         }
-      },
+      } ,
       () => {
-        this.toast.setMessage('item edited successfully.', 'success');
         this.router.navigateByUrl('home');
+        this.toast.setMessage('item edited successfully.', 'success');
       }
     );
   }

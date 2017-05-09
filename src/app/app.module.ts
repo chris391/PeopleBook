@@ -14,8 +14,8 @@ import {EditEmployeeComponent} from "./edit/edit-employee.component";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
-import {FilterEmployees} from "./home/filter-employees.pipe";
 import {SharedService} from "./shared/service/shared-service";
+import {FilterEmployeesPipe} from "./pipes/filter-employees.pipe";
 
 
 @NgModule({

@@ -15,7 +15,7 @@ import {FormControl} from "@angular/forms";
   }
   //should contain P followed by NUMBER
    static validateUserID(form: FormControl){
-     let pattern: RegExp = /[p]+[0-9]/;
+     let pattern: RegExp = /[p, P]+[0-9]/;
      return pattern.test(form.value) ? null : {
        validateUserID: {
          valid: false

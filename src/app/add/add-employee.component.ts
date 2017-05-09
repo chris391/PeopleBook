@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveForm
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
+import {CustomValidators} from "../custom-validators/custom.validators";
 
 @Component({
   selector: "add-employee",

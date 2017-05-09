@@ -4,7 +4,7 @@
 import { Pipe, Injectable, PipeTransform } from '@angular/core'
 
 @Pipe({
-  name: 'filterEmployeesPipe'
+  name: 'filterEmployees'
 })
 @Injectable()
 export class FilterEmployeesPipe implements PipeTransform {
