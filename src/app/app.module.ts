@@ -13,10 +13,10 @@ import {EditEmployeeComponent} from "./edit/edit-employee.component";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
-import {FilterEmployees} from "./pipes/filter-employees.pipe";
+import {FilterEmployeesPipe} from "./pipes/filter-employees.pipe";
 import {SharedService} from "./shared/service/shared-service";
 import {RoutingPeopleBook} from "./routing/routing.component";
-import {Capitalized} from "./pipes/capitalized.pipe";
+
 
 
 
@@ -31,9 +31,9 @@ import {Capitalized} from "./pipes/capitalized.pipe";
     HomeComponent,
     ToastComponent,
     AddEmployeeComponent,
-    FilterEmployees,
+    FilterEmployeesPipe,
     EmployeeProfileComponent,
-    Capitalized
+
 
 
 
