@@ -17,17 +17,12 @@ export class AddEmployeeComponent implements OnInit{
 
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
-              private route: ActivatedRoute,
               private dataService: DataService,
               private router: Router,
               private toast: ToastComponent) {
-
   }
 
   ngOnInit() {
-
-
-
     this.myForm = this.fb.group({
       name: ['', Validators.required], //['', Validators.compose[Validators.required]]
       // userID: [''], //['', Validators.compose[Validators.required]]
@@ -74,8 +69,7 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   cancelEditing() {
-    // console.log(this.myForm.value);
-    this.homeComponent.toastCanceledEditing();
+    this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
   }
 

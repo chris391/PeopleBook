@@ -3,11 +3,11 @@
 import {TestBed, async, inject, tick, fakeAsync} from '@angular/core/testing';
 import { DataService } from './data.service';
 import {
-  BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response, HttpModule,
-  XHRBackend, Headers, BaseResponseOptions
+  BaseRequestOptions, Http, ConnectionBackend, ResponseOptions, Response, HttpModule, Headers
 } from "@angular/http";
 import {MockBackend} from "@angular/http/testing";
 
+//tests including successful scenarios and custom error status except errors on the server-side e.g. db down, internet failure
 describe('DataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -29,7 +29,7 @@ describe('DataService', () => {
         const mockResponse = [
           {userID: 'P01', name: 'Carlos'},
           {userID:'P02', name: 'Cris'},
-          {userID:'P03', name: "Henny"}
+          {userID:'P03', name: 'Henny'}
           ];
         let response;
 
@@ -105,9 +105,9 @@ describe('DataService', () => {
       expect(response._body.name).toBe('Marco');
     })));
 
-    it('should send status 412 if object added doesnt contain required user ID(Validation error-uniqueness required)', inject([DataService, MockBackend], fakeAsync((dataService, mockBackend) =>{
+    it('should send status 412 if object added doesnt contain unique user ID', inject([DataService, MockBackend], fakeAsync((dataService, mockBackend) =>{
 
-    let employee = {userID: 'BF35', name: 'Leon'};
+    let employee = {userID: 'P01', name: 'Leon'}; //an employee with this userID already exists
     let headers = new Headers({ 'Content-Type': 'application/json', 'charset': 'UTF-8' });
     let response;
 

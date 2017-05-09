@@ -29,14 +29,14 @@ import {SharedService} from "../shared/service/shared-service";
            *ngFor="let employee of employees | filterEmployees: searchInput">
         <employee [employee]="employee"></employee>
       </div>
-      <!--<div><p>data from Service HERE:</p><p style="color:red"> {{searchInput}}</p></div>-->
     </div>
+    <div id="date"> {{currentDateMs | date}} </div>
   `
 })
 @Injectable()
 export class HomeComponent{
+  currentDateMs =  Date.now();
   searchInput: any;
-
   employees = [];
   employee = {};
   isLoading = true;
@@ -51,16 +51,16 @@ export class HomeComponent{
     this.nodeService.getSearchData().subscribe(data => {
       this.searchInput = data;
     })
-
   }
 
   getEmployees(){
     this.dataService.getEmployees().subscribe(
-      data => this.employees = data,
+      data => {
+        this.employees = data;
+      },
       error => console.log(error),
       () => this.isLoading=false
-    );
-  }
+    )}
 
   enableEditing(employee){
     this.isEditing = true;
@@ -73,16 +73,11 @@ export class HomeComponent{
   cancelEditing() {
     this.isEditing = false;
     this.employee = {};
-    // reload the cats to reset the editing
+
     this.getEmployees();
   }
   gotoAddEmployee(): void {
     let link = ['/add'];
     this.router.navigate(link);
-
-  }
-
-  toastCanceledEditing(){
-    this.toast.setMessage('item editing canceled', 'warning');
   }
 }
