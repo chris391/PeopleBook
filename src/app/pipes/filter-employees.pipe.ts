@@ -7,7 +7,7 @@ import { Pipe, Injectable, PipeTransform } from '@angular/core'
   name: 'filterEmployees'
 })
 @Injectable()
-export class FilterEmployees implements PipeTransform {
+export class FilterEmployeesPipe implements PipeTransform {
   transform(employees: any[], search: string) {
 
     if (employees.length > 0 && search) {

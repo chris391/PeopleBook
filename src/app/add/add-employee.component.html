@@ -9,12 +9,14 @@
         <input class="form-control" type="text" formControlName="name" placeholder="Name">
       </div>
     </div>
+
     <div class="form-group">
       <label> User ID </label>
       <div class="input-group">
         <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
         <input class="form-control" type="text" formControlName="userID" placeholder="User ID">
       </div>
+      <div *ngIf="myForm.controls['userID'].hasError('validateUserID') && myForm.controls['userID'].value.length > 0" class="alert alert-danger">You must specify user id</div>
     </div>
     <div class="form-group">
       <label> Position </label>

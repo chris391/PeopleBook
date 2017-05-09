@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray, ReactiveForm
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
+import {CustomValidators} from "../custom-validators/custom.validators";
 
 @Component({
   selector: "add-employee",
@@ -16,25 +17,22 @@ export class AddEmployeeComponent implements OnInit{
 
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
-              private route: ActivatedRoute,
               private dataService: DataService,
               private router: Router,
               private toast: ToastComponent) {
-
   }
 
   ngOnInit() {
-
-
-
     this.myForm = this.fb.group({
-      name: [''], //['', Validators.compose[Validators.required]]
-      userID: [''], //['', Validators.compose[Validators.required]]
+      name: ['', Validators.required], //['', Validators.compose[Validators.required]]
+      // userID: [''], //['', Validators.compose[Validators.required]]
+      userID: ['', Validators.compose([Validators.required, CustomValidators.validateUserID])],
       position: [''], //['', Validators.compose[Validators.required]]
       department: [''], //['', Validators.compose[Validators.required]]
       country: [''],  //['', Validators.compose[Validators.required]]
       city: [''], //['', Validators.compose[Validators.required]]
       email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
+      // email: ['', Validators.compose([Validators.required, CustomValidators.validateEmail])],
       phoneNumber: [''],  //['', Validators.compose[Validators.required]]
       companyAddress:[''],  //['', Validators.compose[Validators.required]]
       office: [''], //['', Validators.compose[Validators.required]]
@@ -71,8 +69,7 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   cancelEditing() {
-    // console.log(this.myForm.value);
-    this.homeComponent.toastCanceledEditing();
+    this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
   }
 

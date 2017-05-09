@@ -35,8 +35,10 @@
 #container {
   background-color: transparent;
   width: 1000px;
-  /*text-align:center;*/margin-left: auto;
+  /*text-align:center;*/
+  margin-left: auto;
   margin-right: auto;
+
 }
 
 #left {
@@ -58,6 +60,10 @@ ul{
   width:600px;
   height: 100%;
   padding: 10px;
+}
+.pre-scrollable{
+  max-height: 570px;
+  overflow-y: scroll;
 }
 
 #right {
@@ -85,6 +91,7 @@ img{
   width: 400px;
   float: right;
   background-color: transparent;
+  /*height: 1600px;*/
 }
 #info ul{
   /*text-align: left;*/

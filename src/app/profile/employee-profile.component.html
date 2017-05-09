@@ -3,7 +3,6 @@
 
   <div id="container">
     <div id="left">
-
       <ul>
         <li id="editUl" (click)="gotoEdit()" > Edit </li>
 
@@ -15,14 +14,12 @@
     <div id="center">
       <div id="picture">
         <div>
-
           <img
             src={{employee.urlImage}}>
-
         </div>
 
       </div>
-      <div id="info">
+      <div id="info" class="pre-scrollable">
         <h2>{{employee.name}}</h2>
         <h5>{{employee.position}}, {{employee.department}}</h5>
         <br>
@@ -42,18 +39,22 @@
           <li>Working Hours: {{employee.startingHours}}-{{employee.finishingHours}}</li>
         </ul>
 
+        <hr>
+        <h6>About</h6>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla id massa magna. Pellentesque vel tortor nisi. Proin quis lorem rutrum, maximus mi vitae, pulvinar enim. Aliquam vulputate malesuada metus, sit amet laoreet felis tempus vel. Etiam lacinia eget odio sed mollis. Donec id iaculis leo. Fusce dictum fermentum orci, non fermentum nunc viverra sed. Fusce vulputate mi id lectus sagittis viverra. Maecenas bibendum pretium nisi at malesuada. Donec malesuada pharetra aliquam. Donec volutpat ligula felis, sed elementum risus blandit in. Vivamus suscipit purus et sem aliquam, ut faucibus dui suscipit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+
 
       </div>
     </div>
     <div id="right">
       <ul>
-        <li id="superior" (click)="gotoEmployee(superior.userID)" *ngFor="let superior of superiorsObj">{{superior.name}}</li>
+        <li id="superior" (click)="gotoEmployee(superior.userID)" *ngFor="let superior of superiorsObj">{{superior?.name}}</li>
         <li><i class="fa fa-chevron-circle-up"></i><b> Superiors</b> </li>
         <hr>
         <li>{{employee.name}}</li>
         <hr>
         <li><i class="fa fa-chevron-circle-down"></i><b>Subordinates</b> </li>
-        <li id="subordinate" (click)="gotoEmployee(subordinate.userID)" *ngFor="let subordinate of subordinatesObj">{{subordinate.name}}</li>
+        <li id="subordinate" (click)="gotoEmployee(subordinate.userID)" *ngFor="let subordinate of subordinatesObj">{{subordinate?.name}}</li>
       </ul>
     </div>
 

@@ -14,9 +14,7 @@ import {ToastComponent} from "../shared/toast/toast.component";
 export class EditEmployeeComponent {
   isLoading = true;
   public myForm: FormGroup;
-  form: FormGroup;
-  private objectID: any;
-  myModel:any;
+  objectID: any;
 
   constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}
 
@@ -43,14 +41,13 @@ export class EditEmployeeComponent {
 
     //getting the id of the selected employee
     this.route.params.subscribe(
-      (params: Params) => {
+      (params) => {
         let id = params['id'];
         this.objectID = id;
       });
 
     this.dataService.getEmployee(this.objectID).subscribe(
         employeeObj => {
-          this.myModel = employeeObj;
 
           this.myForm.controls['_id'].setValue(employeeObj._id);
           this.myForm.controls['name'].setValue(employeeObj.name);
