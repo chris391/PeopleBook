@@ -9,7 +9,7 @@
         <label> Employee name </label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-user"></i></span>
-          <input class="form-control" type="text" formControlName="name" placeholder="Name">
+          <input id="name" class="form-control" type="text" formControlName="name" placeholder="Name">
         </div>
         <div *ngIf=" myForm.controls['name'].hasError('required')&& myForm.controls['name'].touched" class="alert alert-danger" >You must include a name.</div>
       </div>

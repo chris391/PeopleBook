@@ -2,8 +2,8 @@
  * Created by marcosuarez on 5/4/17.
  */
 import {TestBed, async, inject, tick, fakeAsync} from '@angular/core/testing';
+import {FilterEmployeesPipe} from "./filter-employees.pipe";
 
-import {FilterEmployees} from './filter-employees.pipe';
 
 
 
@@ -17,13 +17,13 @@ describe('Filters test', () => {
     ];
     TestBed.configureTestingModule({
       declarations: [
-        FilterEmployees
+        FilterEmployeesPipe
       ]
     })
   });
 
   describe("FilterEmployees", () => {
-    let filter = new FilterEmployees();
+    let filter = new FilterEmployeesPipe();
 
     it('No search string returns array', () => {
       let results = filter.transform(this.employees, '');

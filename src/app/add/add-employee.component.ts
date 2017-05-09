@@ -71,7 +71,7 @@ export class AddEmployeeComponent implements OnInit{
 
   cancelEditing() {
     // console.log(this.myForm.value);
-    this.homeComponent.toastCanceledEditing();
+    this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
   }
 
@@ -90,7 +90,7 @@ export class AddEmployeeComponent implements OnInit{
       },
       () => {
         this.toast.setMessage('item added successfully', 'success');
-        // this.router.navigateByUrl('home');
+        this.router.navigateByUrl('home');
       }
     )
   }

@@ -14,8 +14,7 @@ import {CustomValidators} from "../custom-validators/custom.validators";
 export class EditEmployeeComponent {
   isLoading = true;
   public myForm: FormGroup;
-  form: FormGroup;
-  private objectID: any;
+  objectID: any;
 
   constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}
 
@@ -41,7 +40,7 @@ export class EditEmployeeComponent {
 
     //getting the id of the selected employee
     this.route.params.subscribe(
-      (params: Params) => {
+      (params) => {
         let id = params['id'];
         this.objectID = id;
       });

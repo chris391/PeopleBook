@@ -4,10 +4,10 @@
 import { Pipe, Injectable, PipeTransform } from '@angular/core'
 
 @Pipe({
-  name: 'filterEmployees'
+  name: 'filterEmployeesPipe'
 })
 @Injectable()
-export class FilterEmployees implements PipeTransform {
+export class FilterEmployeesPipe implements PipeTransform {
   transform(employees: any[], search: string) {
 
     if (employees.length > 0 && search) {

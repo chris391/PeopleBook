@@ -25,4 +25,4 @@ const routes: Routes = [
 
     ]
 })
-export class RoutingModule { }
+export class RoutingPeopleBook { }
