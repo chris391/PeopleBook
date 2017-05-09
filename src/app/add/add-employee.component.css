@@ -25,4 +25,7 @@ label{
 #subordinateRemove:hover{
   text-decoration: underline;
 }
+.alert-danger{
+  opacity: 0.9;
+}
 

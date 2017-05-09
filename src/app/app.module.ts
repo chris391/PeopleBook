@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router'
 import { AppComponent } from './app.component';
 import {EmployeeThumbnailComponent} from "./thumbnail/employee-thumbnail.component";
 import { DataService } from './services/data.service'
@@ -13,7 +14,7 @@ import {EditEmployeeComponent} from "./edit/edit-employee.component";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
-import {FilterEmployeesPipe} from "./pipes/filter-employees.pipe";
+import {FilterEmployees} from "./home/filter-employees.pipe";
 import {SharedService} from "./shared/service/shared-service";
 
 

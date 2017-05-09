@@ -4,9 +4,9 @@ import {FormBuilder, FormGroup, Validators, FormControl, FormArray} from "@angul
 import {ActivatedRoute, Params, Router} from "@angular/router";
 import {DataService} from "../services/data.service";
 import {ToastComponent} from "../shared/toast/toast.component";
+import {CustomValidators} from "../custom-validators/custom.validators";
 
 @Component({
-
   selector: "edit-employee",
   styleUrls: ["edit-employee.component.css"],
   templateUrl: "edit-employee.component.html"
@@ -18,25 +18,24 @@ export class EditEmployeeComponent {
 
   constructor(private homeComponent: HomeComponent, private fb: FormBuilder, private route: ActivatedRoute, private dataService: DataService, private router: Router, private toast: ToastComponent) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.myForm = this.fb.group({
-      _id: [''], //['', Validators.compose[Validators.required]]
-      name: [''], //['', Validators.compose[Validators.required]]
-      userID: [''], //['', Validators.compose[Validators.required]]
-      position: [''], //['', Validators.compose[Validators.required]]
-      department: [''], //['', Validators.compose[Validators.required]]
-      country: [''],  //['', Validators.compose[Validators.required]]
-      city: [''], //['', Validators.compose[Validators.required]]
-      email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
-      phoneNumber: [''],  //['', Validators.compose[Validators.required]]
-      companyAddress:[''],  //['', Validators.compose[Validators.required]]
-      office: [''], //['', Validators.compose[Validators.required]]
-      fax: [''],  //['', Validators.compose[Validators.required]]
-      startingHours:[''], //['', Validators.compose[Validators.required]]
-      finishingHours:[''],  //['', Validators.compose[Validators.required]]
+      name: ['', Validators.compose([Validators.required])],
+      userID: ['', Validators.compose([Validators.required, CustomValidators.validateUserID])],
+      position: ['', Validators.compose([Validators.required])],
+      department: ['', Validators.compose([Validators.required])],
+      country: ['', Validators.compose([Validators.required])],
+      city: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required, CustomValidators.validateEmail])],
+      phoneNumber: ['', Validators.compose([Validators.required])],
+      companyAddress:['', Validators.compose([Validators.required])],
+      office: ['', Validators.compose([Validators.required])],
+      fax: ['', Validators.compose([Validators.required])],
+      startingHours:['', Validators.compose([Validators.required])],
+      finishingHours:['', Validators.compose([Validators.required])],
       superiorsUserID: this.fb.array([]),
       subordinatesUserID: this.fb.array([]),
-      urlImage: [''], //['', Validators.compose[Validators.required]]
+      urlImage: ['', Validators.compose([Validators.required])],
     });
 
     //getting the id of the selected employee
@@ -126,7 +125,7 @@ export class EditEmployeeComponent {
       res => {
 
       },
-      error => {
+      error =>{
         if (error.status === 412){
           console.log(error);
           window.alert('UserID has to be unique!');
