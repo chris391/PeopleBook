@@ -3,7 +3,12 @@
   /*height: 600px;*/
   width: 100%;
   background-color: wheat;
+  /*background-color: #7cbac6;*/
   padding: 20px;
+  /*height: 100vh;*/
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*bottom:0;*/
 }
 #footer{
   clear: both;
@@ -12,6 +17,7 @@
   background-color: #999;
   /*text-align: right;*/
 }
+
 /*h1 {*/
 /*font-size: 1.2em;*/
 /*color: #999;*/

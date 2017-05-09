@@ -21,17 +21,17 @@ import {SharedService} from "../shared/service/shared-service";
 
     <div class="row">
       <div id="employeeThumbnail" class="col-xs-10 col-sm-6 col-md-4 col-lg-3"
-           *ngFor="let employee of employees | filterEmployeesPipe: searchInput">
+           *ngFor="let employee of employees | filterEmployees: searchInput">
         <employee [employee]="employee"></employee>
       </div>
-      <!--<div><p>data from Service HERE:</p><p style="color:red"> {{searchInput}}</p></div>-->
     </div>
+    <div id="date"> {{currentDateMs | date}} </div>
   `
 })
 @Injectable()
 export class HomeComponent{
+  currentDateMs =  Date.now();
   searchInput: any;
-
   employees = [];
   employee = {};
   isLoading = true;
@@ -55,9 +55,20 @@ export class HomeComponent{
       () => this.isLoading=false
     );
   }
+
   enableEditing(employee){
     this.isEditing = true;
     this.employee = employee;
+  }
+  gotoEmployeeProfile(employee){
+    this.employee = employee;
+  }
+
+  cancelEditing() {
+    this.isEditing = false;
+    this.employee = {};
+
+    this.getEmployees();
   }
   gotoAddEmployee(): void {
     let link = ['/add'];

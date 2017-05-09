@@ -5,6 +5,7 @@
   "angular-cli": {},
   "scripts": {
     "ng": "ng",
+    "test-watch": "node node_modules/karma/bin/karma start --browsers=Chrome --single-run=false --auto-watch",
     "start": "concurrently \"ng build -w\" \"nodemon src/server/app.js\"",
     "prod": "concurrently \"mongod\" \"ng build -prod\" \"node src/server/app.js\"",
     "test": "ng test",

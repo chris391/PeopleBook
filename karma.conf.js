@@ -13,11 +13,11 @@ module.exports = function (config) {
       require('angular-cli/plugins/karma')
     ],
     files: [
-      { pattern: './src/test.ts', watched: false },
+      { pattern: './src/test.ts', watched: false }
 
     ],
     preprocessors: {
-      './src/test.ts': ['angular-cli']
+      './src/test.ts': ['angular-cli'],
     },
     mime: {
       'text/x-typescript': ['ts','tsx']
@@ -40,6 +40,14 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
+
+    customLaunchers: {
+      Chrome_DevTools_Saved_Prefs: {
+        base: 'Chrome',
+        flags: ['--user-data-dir=./tests/config/.chrome_dev_user']
+
+      }
+    },
     // browsers: ['PhantomJS'],
     singleRun: false
   });

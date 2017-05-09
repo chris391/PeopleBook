@@ -1,3 +1,4 @@
+import {RoutingPeopleBook} from "./routing/routing.module";
 
 import { EmployeeProfileComponent } from './profile/employee-profile.component';
 import { BrowserModule } from '@angular/platform-browser';
@@ -13,11 +14,8 @@ import {EditEmployeeComponent} from "./edit/edit-employee.component";
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import {ToastComponent} from "./shared/toast/toast.component";
 import {AddEmployeeComponent} from "./add/add-employee.component";
-import {FilterEmployeesPipe} from "./pipes/filter-employees.pipe";
 import {SharedService} from "./shared/service/shared-service";
-import {RoutingPeopleBook} from "./routing/routing.component";
-
-
+import {FilterEmployeesPipe} from "./pipes/filter-employees.pipe";
 
 
 @NgModule({
@@ -33,10 +31,6 @@ import {RoutingPeopleBook} from "./routing/routing.component";
     AddEmployeeComponent,
     FilterEmployeesPipe,
     EmployeeProfileComponent,
-
-
-
-
   ],
   imports: [
     BrowserModule,

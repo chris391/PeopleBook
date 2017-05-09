@@ -15,14 +15,11 @@ export class AddEmployeeComponent implements OnInit{
   isLoading = true;
   myForm: FormGroup;
 
-  AddEmployeeComponent(){}
-
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
               private dataService: DataService,
               private router: Router,
               private toast: ToastComponent) {
-
   }
 
   ngOnInit() {
@@ -70,7 +67,6 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   cancelEditing() {
-    // console.log(this.myForm.value);
     this.toast.setMessage('item editing canceled', 'warning');
     this.router.navigateByUrl('home');
   }

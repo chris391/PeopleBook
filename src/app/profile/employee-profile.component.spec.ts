@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { EmployeeProfileComponent } from './employee-profile.component';
-/*
+
 describe('EmployeeProfileComponent', () => {
   let component: EmployeeProfileComponent;
   let fixture: ComponentFixture<EmployeeProfileComponent>;
@@ -25,5 +25,4 @@ describe('EmployeeProfileComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-});*/
-
+});
