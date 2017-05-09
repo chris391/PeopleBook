@@ -5,102 +5,85 @@
 
   <div style=" width:330px;margin:0 auto;">
     <form [formGroup]="myForm" style="width: 330px;">
-      <div class="form-group" [ngClass]="{'has-error':!myForm.controls['name'].valid && myForm.controls['name'].touched}">
+      <div class="form-group">
         <label> Employee name </label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-user"></i></span>
-          <input class="form-control" type="text" formControlName="name" placeholder="Name">
+          <input id="name" class="form-control" type="text" formControlName="name" placeholder="Name">
         </div>
-        <div *ngIf=" myForm.controls['name'].hasError('required')&& myForm.controls['name'].touched" class="alert alert-danger" >You must include a name.</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['userID'].valid && myForm.controls['userID'].touched}">
+      <div class="form-group">
         <label> User ID </label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-id-card-o"></i></span>
           <input class="form-control" type="text" formControlName="userID" placeholder="User ID">
         </div>
-        <div *ngIf=" myForm.controls['userID'].hasError('required')&& myForm.controls['userID'].touched" class="alert alert-danger">You must include a valid user id</div>
-        <div *ngIf=" myForm.controls['userID'].hasError('validateUserID') &&  myForm.controls['userID'].value.length > 0"class="alert alert-danger" >User id must start with "p" and followed by a number. E.g.'P99'</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['position'].valid && myForm.controls['position'].touched}">
+      <div class="form-group">
         <label> Position </label>
         <input class="form-control" type="text" formControlName="position" placeholder="Position">
-        <div *ngIf="myForm.controls['position'].hasError('required')&& myForm.controls['position'].touched" class="alert alert-danger" >You must include a position.</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['department'].valid && myForm.controls['department'].touched}">
+      <div class="form-group">
         <label> Department </label>
         <input class="form-control" type="text" formControlName="department"
                placeholder="Department">
-        <div class="alert alert-danger" *ngIf="myForm.controls['department'].hasError('required')&& myForm.controls['department'].touched">You must include a department</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['country'].valid && myForm.controls['country'].touched}">
+      <div class="form-group">
         <label> Country </label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-flag"></i></span>
           <input class="form-control" type="text" formControlName="country"
                  placeholder="Country">
         </div>
-        <div *ngIf="myForm.controls['country'].hasError('required')&& myForm.controls['country'].touched" class="alert alert-danger" >You must include a country</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['city'].valid && myForm.controls['city'].touched}">
+      <div class="form-group">
         <label> City </label>
         <input class="form-control" type="text" formControlName="city"
                placeholder="City">
-        <div *ngIf="myForm.controls['city'].hasError('required') && myForm.controls['city'].touched" class="alert alert-danger">You must include a city</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['email'].valid && myForm.controls['email'].touched}">
+      <div class="form-group">
         <label> Email </label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
           <input class="form-control" type="text" formControlName="email"
                  placeholder="E-mail">
         </div>
-        <div *ngIf="myForm.controls['email'].hasError('required')&& myForm.controls['email'].touched" class="alert alert-danger" >You must include a valid email</div>
-        <div *ngIf="myForm.controls['email'].hasError('validateEmail')&& myForm.controls['email'].dirty" class="alert alert-danger" >E.g. 'poul@company.com'</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['phoneNumber'].valid && myForm.controls['phoneNumber'].touched}">
+      <div class="form-group">
         <label> Phone number </label>
         <div class="input-group">
           <span class="input-group-addon"><i class="fa fa-phone"></i></span>
           <input class="form-control" type="text" formControlName="phoneNumber"
                  placeholder="Phone Number">
         </div>
-        <div *ngIf="myForm.controls['phoneNumber'].hasError('required')&& myForm.controls['phoneNumber'].touched" class="alert alert-danger" >You must include a phone number</div>
-
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['companyAddress'].valid && myForm.controls['companyAddress'].touched}">
+      <div class="form-group">
         <label> Company address </label>
         <input class="form-control" type="text" formControlName="companyAddress"
                placeholder="Company Address">
-        <div *ngIf="myForm.controls['companyAddress'].hasError('required')&& myForm.controls['companyAddress'].touched" class="alert alert-danger" >You must include a company address</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['office'].valid && myForm.controls['office'].touched}">
+      <div class="form-group">
         <label> Office </label>
         <input class="form-control" type="text" formControlName="office"
                placeholder="Office">
-        <div *ngIf="myForm.controls['office'].hasError('required')&& myForm.controls['office'].touched" class="alert alert-danger" >You must specify an office</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['fax'].valid && myForm.controls['fax'].touched}">
+      <div class="form-group">
         <label> Fax </label>
         <div class="input-group">
           <span class="input-group-addon" ><i class="fa fa-fax"></i></span>
           <input class="form-control" type="text" formControlName="fax"
                  placeholder="Fax">
         </div>
-        <div *ngIf="myForm.controls['fax'].hasError('required')&& myForm.controls['fax'].touched" class="alert alert-danger" >You must include a fax</div>
-
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['startingHours'].valid && myForm.controls['startingHours'].touched}">
+      <div class="form-group">
         <label> Start hour </label>
         <input class="form-control" type="text" onfocus="(this.type='time')" formControlName="startingHours"
                placeholder="Starting Hours"/>
-        <div *ngIf="myForm.controls['startingHours'].hasError('required')&& myForm.controls['startingHours'].touched" class="alert alert-danger" >You must include a start hour</div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['finishingHours'].valid && myForm.controls['finishingHours'].touched}">
+      <div class="form-group">
         <label> Finish hour </label>
         <input  class="form-control" type="text" onfocus="(this.type='time')" formControlName="finishingHours"
                 placeholder="Finishing Hours"/>
-        <div *ngIf="myForm.controls['finishingHours'].hasError('required')&& myForm.controls['finishingHours'].touched" class="alert alert-danger" >You must include a finish hour</div>
       </div>
       <label><i class="fa fa-chevron-circle-up"></i> Superiors </label>
       <a id="superiorAdd" (click)="addSuperior()"> Add +</a>
@@ -108,7 +91,7 @@
         <div *ngFor="let address of myForm.controls.superiorsUserID.controls; let i=index">
           <div>
             <span>Superior {{i + 1}}</span>
-            <span id="superiorRemove" *ngIf="myForm.controls.superiorsUserID.controls.length > 0" (click)="removeSuperior(i)" >
+            <span id="superiorRemove" *ngIf="myForm.controls.superiorsUserID.controls.length > 0" (click)="removeSuperior(i)">
                     Remove -
           </span>
           </div>
@@ -138,13 +121,13 @@
           </div>
         </div>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': !myForm.controls['urlImage'].valid && myForm.controls['urlImage'].touched}">
+      <div class="form-group">
         <label> Image </label>
         <textarea class="form-control" rows="3" cols="5" type="text" formControlName="urlImage"
                   placeholder="Image URL">
       </textarea>
-        <div *ngIf="myForm.controls['urlImage'].hasError('required')&& myForm.controls['urlImage'].touched" class="alert alert-danger" >You must include an url image</div>
       </div>
+
       <button class="btn btn-sm btn-primary" type="submit" (click)="editEmployee(myForm.value)" [disabled]="!myForm.valid"><i class="fa fa-floppy-o"></i> Save </button>
       <button class="btn btn-sm btn-warning" (click)="cancelEditing()"><i class="fa fa-times"></i> Cancel </button>
     </form>

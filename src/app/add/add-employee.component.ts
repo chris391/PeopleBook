@@ -15,38 +15,33 @@ export class AddEmployeeComponent implements OnInit{
   isLoading = true;
   myForm: FormGroup;
 
-  AddEmployeeComponent(){}
-
   constructor(private homeComponent: HomeComponent,
               private fb: FormBuilder,
-              private route: ActivatedRoute,
               private dataService: DataService,
               private router: Router,
               private toast: ToastComponent) {
-
   }
 
   ngOnInit() {
-
-
-
     this.myForm = this.fb.group({
-      name: ['', Validators.compose([Validators.required])],
+      name: ['', Validators.required], //['', Validators.compose[Validators.required]]
+      // userID: [''], //['', Validators.compose[Validators.required]]
       userID: ['', Validators.compose([Validators.required, CustomValidators.validateUserID])],
-      position: ['', Validators.compose([Validators.required])],
-      department: ['', Validators.compose([Validators.required])],
-      country: ['', Validators.compose([Validators.required])],
-      city: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.required, CustomValidators.validateEmail])],
-      phoneNumber: ['', Validators.compose([Validators.required])],
-      companyAddress:['', Validators.compose([Validators.required])],
-      office: ['', Validators.compose([Validators.required])],
-      fax: ['', Validators.compose([Validators.required])],
-      startingHours:['', Validators.compose([Validators.required])],
-      finishingHours:['', Validators.compose([Validators.required])],
+      position: [''], //['', Validators.compose[Validators.required]]
+      department: [''], //['', Validators.compose[Validators.required]]
+      country: [''],  //['', Validators.compose[Validators.required]]
+      city: [''], //['', Validators.compose[Validators.required]]
+      email: [''],  //['', Validators.compose[Validators.required, CustomValidators.emailValidator]]
+      // email: ['', Validators.compose([Validators.required, CustomValidators.validateEmail])],
+      phoneNumber: [''],  //['', Validators.compose[Validators.required]]
+      companyAddress:[''],  //['', Validators.compose[Validators.required]]
+      office: [''], //['', Validators.compose[Validators.required]]
+      fax: [''],  //['', Validators.compose[Validators.required]]
+      startingHours:[''], //['', Validators.compose[Validators.required]]
+      finishingHours:[''],  //['', Validators.compose[Validators.required]]
       superiorsUserID: this.fb.array([]),
       subordinatesUserID: this.fb.array([]),
-      urlImage: ['', Validators.compose([Validators.required])],
+      urlImage: [''], //['', Validators.compose[Validators.required]]
     });
   }
 
@@ -74,12 +69,7 @@ export class AddEmployeeComponent implements OnInit{
   }
 
   cancelEditing() {
-    // console.log(this.myForm.value);
-<<<<<<< HEAD
     this.toast.setMessage('item editing canceled', 'warning');
-=======
-    this.homeComponent.toastCanceledEditing();
->>>>>>> parent of e6639ec... PB-0 tests for add-employee, edit-employee tests added
     this.router.navigateByUrl('home');
   }
 

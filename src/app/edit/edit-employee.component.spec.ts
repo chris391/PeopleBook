@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 import {async, ComponentFixture, fakeAsync, getTestBed, inject, TestBed, tick} from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
@@ -18,7 +17,7 @@ import {EmployeeThumbnailComponent} from "../thumbnail/employee-thumbnail.compon
 import {HashLocationStrategy, LocationStrategy} from "@angular/common";
 import {SharedService} from "../shared/service/shared-service";
 import {AppComponent} from "../app.component";
-import {RoutingPeopleBook} from "../routing/routing.component";
+import {RoutingPeopleBook} from "../routing/routing.module";
 import {ROUTER_PROVIDERS} from "@angular/router/testing/private_import_router";
 import {RouterTestingModule} from "@angular/router/testing";
 import {AddEmployeeComponent} from "../add/add-employee.component";
@@ -28,8 +27,8 @@ import {el} from "@angular/platform-browser/testing/browser_util";
 describe('EditEmployeeComponent', () => {
   let component: EditEmployeeComponent;
   let fixture: ComponentFixture<EditEmployeeComponent>;
-  let de: DebugElement;
-  let el: HTMLInputElement;
+  let de:      DebugElement;
+  let element:      HTMLInputElement;
 
   let employee = {name: 'Paulo', userID: 'P02', position: 'Jefe', department: 'IT', country: 'Denmark', city: 'Aarhus', email: 'aa@aa.dk', phoneNumber: '222222', companyAddress:'Poul Reichhardtsvej', office: '09', fax: '999999', startingHours:'07:00', finishingHours:'15:00', superiorsUserID: [{superiorID: {userID: 'P01'}}], subordinatesUserID: [{subordinateID: {userID: 'P03'}}], urlImage: 'http://www.images.com'};
   class MockDataService {
@@ -82,8 +81,8 @@ describe('EditEmployeeComponent', () => {
     component = fixture.componentInstance;
     // let dataService = fixture.debugElement.injector.get(DataService);
     fixture.detectChanges();
-    de = fixture.debugElement.query(By.css('#name'));
-    el = de.nativeElement;
+    de = fixture.debugElement.query(By.css('input'));
+    element = de.nativeElement;
 
 
   });
@@ -125,13 +124,17 @@ describe('EditEmployeeComponent', () => {
   });
   describe('ngOnInit', () => {
     it('should set value of FormGroup', inject([ActivatedRoute, Router], (route, router) =>{
+
       expect(component.myForm.value).toBeDefined();
-      let nameElement= fixture.debugElement.query(By.css('#name')).nativeElement;
-      expect(nameElement.value).toBe('Paulo');
+
     }))
-  })
+  });
+  it('should set value of FormGroup', inject([ActivatedRoute, Router], (route, router) =>{
+
+    let nameElement = fixture.debugElement.query(By.css('#name')).nativeElement;
+    expect(nameElement.value).toBe('Paulo');
+
+  }));
+
 
 });
-
-=======
->>>>>>> parent of e6639ec... PB-0 tests for add-employee, edit-employee tests added
