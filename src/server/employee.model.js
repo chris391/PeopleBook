@@ -15,8 +15,12 @@ var employeeSchema = mongoose.Schema({
   fax: String,
   startingHours: String,
   finishingHours: String,
-  superiorsUserID: [{superiorID: {type: String, uppercase: true}}],
-  subordinatesUserID: [{subordinateID: {type: String, uppercase: true}}],
+  superiorsUserID: [
+    {superiorID: {type: String, uppercase: true}}
+    ],
+  subordinatesUserID: [
+    {subordinateID: {type: String, uppercase: true}}
+    ],
   urlImage: String
 });
 

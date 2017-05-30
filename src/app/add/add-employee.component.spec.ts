@@ -111,7 +111,7 @@ describe('AddEmployeesComponent', () => {
       expect(toast.message.type).toEqual('warning');
 
     })))
-  })
+  });
   describe('addEmployee', ()=>{
     it('should post employee', inject([Router, ToastComponent], ((router,toast)=>{
       const navigateByUrl = spyOn(router, 'navigateByUrl');

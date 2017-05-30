@@ -3,20 +3,21 @@
   /*height: 600px;*/
   width: 100%;
   background-color: wheat;
-  /*background-color: #7cbac6;*/
+  /*background-color: #9BB8B8;*/
   padding: 20px;
   /*height: 100vh;*/
   /*position: absolute;*/
   /*top: 0;*/
   /*bottom:0;*/
 }
-#footer{
+#footer {
   clear: both;
   padding: 10px;
   color: white;
   background-color: #999;
   /*text-align: right;*/
 }
+
 
 /*h1 {*/
 /*font-size: 1.2em;*/

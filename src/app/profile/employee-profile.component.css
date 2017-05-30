@@ -42,7 +42,7 @@
 }
 
 #left {
-  background-color: transparent;
+  /*background-color: darkred;*/
   float:left;
   width:200px;
   height: 100%;
@@ -123,6 +123,9 @@ img{
 }
 #subordinate:hover{
   text-decoration: underline;
+}
+#employeeName{
+  /*color: #068b99;*/
 }
 
 
