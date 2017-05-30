@@ -4,7 +4,6 @@
 // import { DebugElement } from '@angular/core';
 //
 // import { EmployeeProfileComponent } from './employee-profile.component';
-// import {ActivatedRoute} from "@angular/router";
 //
 // describe('EmployeeProfileComponent', () => {
 //   let component: EmployeeProfileComponent;
@@ -12,7 +11,6 @@
 //
 //   beforeEach(async(() => {
 //     TestBed.configureTestingModule({
-//       providers:[ActivatedRoute],
 //       declarations: [ EmployeeProfileComponent ]
 //     })
 //     .compileComponents();
@@ -24,7 +22,7 @@
 //     fixture.detectChanges();
 //   });
 //
-//   it('should create', () => {
+//   xit('should create', () => {
 //     expect(component).toBeTruthy();
 //   });
 // });

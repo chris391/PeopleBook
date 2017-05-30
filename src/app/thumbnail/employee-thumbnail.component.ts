@@ -82,7 +82,6 @@ export class EmployeeThumbnailComponent{
   gotoEmployeeProfile() : void{
     // this.sharedService.updateEmployee(this.employee);
     // this.sharedService.getEmployee().subscribe(e=> console.log('s'));
-    this.sharedService.updateEmployee(this.employee);
     let link = ['/profile', this.employee.userID ];
     this.router.navigate(link);
   }

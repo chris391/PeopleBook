@@ -14,11 +14,6 @@ import {SharedService} from "../shared/service/shared-service";
   template:`
     <app-toast [message]="toast.message"></app-toast>
 
-    <div *ngIf="isEditing">
-      <!--                  binding target - binding source-->
-      <edit-employee></edit-employee>
-    </div>
-
     <div id="btn-padding">
       <button id="btn-styling" class="btn btn-lg btn-primary" (click)="gotoAddEmployee()"><i class="fa fa-plus"></i>
       </button>
@@ -55,12 +50,11 @@ export class HomeComponent{
 
   getEmployees(){
     this.dataService.getEmployees().subscribe(
-      data => {
-        this.employees = data;
-      },
+      data => this.employees = data,
       error => console.log(error),
       () => this.isLoading=false
-    )}
+    );
+  }
 
   enableEditing(employee){
     this.isEditing = true;

@@ -11,7 +11,6 @@ import {MockBackend} from "@angular/http/testing";
 describe('DataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      // imports: [HttpModule],
       providers: [
         BaseRequestOptions,
         DataService,

@@ -5,21 +5,14 @@ import {Subject, BehaviorSubject} from "rxjs";
  */
 @Injectable()
 export class SharedService {
-  private searchInput = new Subject();
-  private employee = new Subject();
+  private search = new Subject();
 
 
   getSearchData() {
-    return this.searchInput;
+    return this.search;
   }
 
   updateSearchData(data: string) {
-    this.searchInput.next(data);
-  }
-  getEmployee(){
-    return this.employee;
-  }
-  updateEmployee(data: any){
-    this.employee.next(data);
+    this.search.next(data);
   }
 }

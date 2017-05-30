@@ -4,6 +4,7 @@ var morgan = require('morgan'); // logger
 var bodyParser = require('body-parser');
 
 var app = express();
+
 app.set('port', (process.env.PORT || 4200));
 
 app.use('/', express.static(__dirname + '/../../dist'));
@@ -15,7 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(morgan('dev'));
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://chris391:wingmm@ds123080.mlab.com:23080/clunky');
+// mongoose.connect('mongodb://chris391:wingmm@ds123080.mlab.com:23080/clunky');
+mongoose.connect('mongodb://localhost:27017/test');
 var db = mongoose.connection;
 mongoose.Promise = global.Promise;
 
@@ -54,18 +56,18 @@ db.once('open', function() {
     });
   });
 
+
+
   // create
   app.post('/employee', function(req, res) {
     var obj = new Employee(req.body);
-    // console.log('in app.js');
-    // console.log(obj);
     obj.save(function(err, obj) {
       if (err) {
         if(err.name==='ValidationError'){
           res.status(412).json(obj);
           return console.error(err);
         }else {
-          res.status(400);
+          res.status(500);
           return console.error(err);
         }
       }
